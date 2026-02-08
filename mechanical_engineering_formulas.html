@@ -11,6 +11,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -94,6 +98,76 @@
             padding: 40px;
             color: rgba(255, 255, 255, 0.8);
             font-size: 1.2em;
+            display: none;
+        }
+
+        .quick-links {
+            background: white;
+            padding: 30px 40px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .quick-links h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .quick-links-grid a {
+            display: block;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .quick-links-grid a:hover,
+        .quick-links-grid a:active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .quick-links-toggle {
+            display: none;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .quick-links-toggle:active {
+            transform: scale(0.98);
+        }
+
+        .quick-links-grid.collapsed {
             display: none;
         }
 
@@ -445,6 +519,40 @@
             .formula-description {
                 font-size: 0.8em;
             }
+            
+            .quick-links {
+                padding: 20px 15px;
+            }
+            
+            .quick-links h3 {
+                font-size: 1.3em;
+                margin-bottom: 15px;
+            }
+            
+            .quick-links-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 10px;
+            }
+            
+            .quick-links-grid a {
+                padding: 14px 15px;
+                font-size: 0.9em;
+                min-height: 48px;
+            }
+            
+            .quick-links-toggle {
+                display: block;
+            }
+            
+            .quick-links-grid {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            
+            .quick-links-grid:not(.collapsed) {
+                max-height: 2000px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -462,6 +570,31 @@
             
             .formula {
                 font-size: 0.8em;
+            }
+            
+            .quick-links {
+                padding: 15px 10px;
+            }
+            
+            .quick-links h3 {
+                font-size: 1.2em;
+                margin-bottom: 12px;
+            }
+            
+            .quick-links-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .quick-links-grid a {
+                padding: 14px 12px;
+                font-size: 0.85em;
+                min-height: 48px;
+            }
+            
+            .quick-links-toggle {
+                padding: 12px;
+                font-size: 1em;
             }
             
             .search-container {
@@ -501,9 +634,38 @@
             </div>
         </header>
 
+        <!-- Quick Links Navigation -->
+        <nav class="quick-links">
+            <h3>Quick Links</h3>
+            <button class="quick-links-toggle" id="quickLinksToggle" aria-label="Toggle quick links">
+                📋 Show Quick Links
+            </button>
+            <div class="quick-links-grid" id="quickLinksGrid">
+                <a href="#math-science">📐 Mathematics & Science Fundamentals</a>
+                <a href="#statics">⚖️ Statics</a>
+                <a href="#dynamics">🚀 Dynamics</a>
+                <a href="#thermodynamics">🌡️ Thermodynamics</a>
+                <a href="#fluid-mechanics">💧 Fluid Mechanics</a>
+                <a href="#heat-transfer">🔥 Heat Transfer</a>
+                <a href="#materials-science">⚙️ Materials Science</a>
+                <a href="#machine-design">🔩 Machine Design</a>
+                <a href="#control-systems">🎛️ Control Systems</a>
+                <a href="#programming">💻 Programming & Numerical Methods</a>
+                <a href="#advanced-math">📊 Advanced Mathematical Formulas</a>
+                <a href="#classic-physics">⚛️ Classic Physics</a>
+                <a href="#aviation">✈️ Aviation Formulas</a>
+                <a href="#electricity">⚡ Electricity Formulas</a>
+                <a href="#civil">🏗️ Civil Engineering Formulas</a>
+                <a href="#simple-math">🔢 Simple Mathematics Formulas</a>
+                <a href="#math-5units">📐 Mathematics 5 Units Formulas</a>
+                <a href="#physics-5units">⚛️ Physics 5 Units Formulas</a>
+                <a href="#statistics-5units">📊 Statistics 5 Units Formulas</a>
+            </div>
+        </nav>
+
         <div class="content">
             <!-- Mathematics & Science -->
-            <section class="course-section math-science">
+            <section id="math-science" class="course-section math-science">
                 <h2>📐 Mathematics & Science Fundamentals</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -635,7 +797,7 @@
             </section>
 
             <!-- Statics -->
-            <section class="course-section core-engineering">
+            <section id="statics" class="course-section core-engineering">
                 <h2>⚖️ Statics</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -742,7 +904,7 @@
             </section>
 
             <!-- Dynamics -->
-            <section class="course-section core-engineering">
+            <section id="dynamics" class="course-section core-engineering">
                 <h2>🚀 Dynamics</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -869,7 +1031,7 @@
             </section>
 
             <!-- Thermodynamics -->
-            <section class="course-section core-engineering">
+            <section id="thermodynamics" class="course-section core-engineering">
                 <h2>🌡️ Thermodynamics</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -1021,7 +1183,7 @@
             </section>
 
             <!-- Fluid Mechanics -->
-            <section class="course-section core-engineering">
+            <section id="fluid-mechanics" class="course-section core-engineering">
                 <h2>💧 Fluid Mechanics</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -1178,7 +1340,7 @@
             </section>
 
             <!-- Heat Transfer -->
-            <section class="course-section core-engineering">
+            <section id="heat-transfer" class="course-section core-engineering">
                 <h2>🔥 Heat Transfer</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -1330,7 +1492,7 @@
             </section>
 
             <!-- Materials Science -->
-            <section class="course-section core-engineering">
+            <section id="materials-science" class="course-section core-engineering">
                 <h2>⚙️ Materials Science</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -1477,7 +1639,7 @@
             </section>
 
             <!-- Machine Design -->
-            <section class="course-section core-engineering">
+            <section id="machine-design" class="course-section core-engineering">
                 <h2>🔩 Machine Design</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -1634,7 +1796,7 @@
             </section>
 
             <!-- Control Systems -->
-            <section class="course-section core-engineering">
+            <section id="control-systems" class="course-section core-engineering">
                 <h2>🎛️ Control Systems</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -1781,7 +1943,7 @@
             </section>
 
             <!-- Programming & Numerical Methods -->
-            <section class="course-section skills">
+            <section id="programming" class="course-section skills">
                 <h2>💻 Programming & Numerical Methods</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -1898,7 +2060,7 @@
             </section>
 
             <!-- Mathematical Formulas -->
-            <section class="course-section mathematical">
+            <section id="advanced-math" class="course-section mathematical">
                 <h2>📊 Advanced Mathematical Formulas</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -2045,7 +2207,7 @@
             </section>
 
             <!-- Classic Physics -->
-            <section class="course-section classic-physics">
+            <section id="classic-physics" class="course-section classic-physics">
                 <h2>⚛️ Classic Physics</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -2202,7 +2364,7 @@
             </section>
 
             <!-- Aviation -->
-            <section class="course-section aviation">
+            <section id="aviation" class="course-section aviation">
                 <h2>✈️ Aviation Formulas</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -2369,7 +2531,7 @@
             </section>
 
             <!-- Electricity Formulas -->
-            <section class="course-section electricity">
+            <section id="electricity" class="course-section electricity">
                 <h2>⚡ Electricity Formulas</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -2686,7 +2848,7 @@
             </section>
 
             <!-- Civil Engineering -->
-            <section class="course-section civil">
+            <section id="civil" class="course-section civil">
                 <h2>🏗️ Civil Engineering Formulas</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -3058,7 +3220,7 @@
             </section>
 
             <!-- Simple Mathematics -->
-            <section class="course-section simple-math">
+            <section id="simple-math" class="course-section simple-math">
                 <h2>🔢 Simple Mathematics Formulas</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -3230,7 +3392,7 @@
             </section>
 
             <!-- Mathematics 5 Units -->
-            <section class="course-section math-5units">
+            <section id="math-5units" class="course-section math-5units">
                 <h2>📐 Mathematics 5 Units Formulas</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -3417,7 +3579,7 @@
             </section>
 
             <!-- Physics 5 Units -->
-            <section class="course-section physics-5units">
+            <section id="physics-5units" class="course-section physics-5units">
                 <h2>⚛️ Physics 5 Units Formulas</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -3624,7 +3786,7 @@
             </section>
 
             <!-- Statistics 5 Units -->
-            <section class="course-section statistics-5units">
+            <section id="statistics-5units" class="course-section statistics-5units">
                 <h2>📊 Statistics 5 Units Formulas</h2>
                 <div class="formula-list">
                     <div class="formula-item">
@@ -5111,6 +5273,61 @@
 
         // Add buttons to all formula items
         document.addEventListener('DOMContentLoaded', function() {
+            // Quick Links Toggle for Mobile
+            const quickLinksToggle = document.getElementById('quickLinksToggle');
+            const quickLinksGrid = document.getElementById('quickLinksGrid');
+            
+            if (quickLinksToggle && quickLinksGrid) {
+                // Check if we're on mobile (screen width <= 768px)
+                function isMobile() {
+                    return window.innerWidth <= 768;
+                }
+                
+                // Set initial state on mobile
+                if (isMobile()) {
+                    quickLinksGrid.classList.add('collapsed');
+                    quickLinksToggle.textContent = '📋 Show Quick Links';
+                }
+                
+                quickLinksToggle.addEventListener('click', function() {
+                    quickLinksGrid.classList.toggle('collapsed');
+                    if (quickLinksGrid.classList.contains('collapsed')) {
+                        quickLinksToggle.textContent = '📋 Show Quick Links';
+                    } else {
+                        quickLinksToggle.textContent = '📋 Hide Quick Links';
+                    }
+                });
+                
+                // Update on window resize
+                window.addEventListener('resize', function() {
+                    if (!isMobile()) {
+                        quickLinksGrid.classList.remove('collapsed');
+                    } else if (quickLinksGrid.classList.contains('collapsed')) {
+                        quickLinksToggle.textContent = '📋 Show Quick Links';
+                    }
+                });
+            }
+            
+            // Smooth scroll with offset for mobile
+            document.querySelectorAll('.quick-links-grid a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            const offset = window.innerWidth <= 768 ? 80 : 0;
+                            const targetPosition = targetElement.offsetTop - offset;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
             const formulaItems = document.querySelectorAll('.formula-item');
             
             formulaItems.forEach((item, index) => {
