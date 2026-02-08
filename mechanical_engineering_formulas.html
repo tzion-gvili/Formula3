@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanical Engineering Formulas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .course-section {
+            margin-bottom: 50px;
+            border-left: 5px solid;
+            padding-left: 20px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course-section:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .course-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .formula-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .formula-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .formula-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .formula-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .formula-name {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.95em;
+            flex: 1;
+        }
+
+        .formula-info-btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
+            flex-shrink: 0;
+        }
+
+        .formula-info-btn:hover {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 4px 12px rgba(255, 107, 157, 0.5);
+        }
+
+        .formula-info-btn:active {
+            transform: scale(0.95);
+        }
+
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 8px 0;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+            color: white;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        .modal-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-formula {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .variables-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .variables-list li {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s;
+        }
+
+        .variables-list li:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .variable {
+            font-weight: bold;
+            font-size: 1.1em;
+            display: inline-block;
+            min-width: 30px;
+        }
+
+        .variable-meaning {
+            margin-left: 10px;
+        }
+
+        .formula-description {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Color coding for different course sections */
+        .math-science { border-left-color: #e74c3c; }
+        .core-engineering { border-left-color: #3498db; }
+        .skills { border-left-color: #2ecc71; }
+        .design { border-left-color: #f39c12; }
+
+        .math-science h2 { color: #e74c3c; }
+        .core-engineering h2 { color: #3498db; }
+        .skills h2 { color: #2ecc71; }
+        .design h2 { color: #f39c12; }
+
+        footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        footer strong {
+            font-size: 1.2em;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .formula-list {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                padding: 25px 20px;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            header p {
+                font-size: 1em;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .course-section {
+                padding: 15px;
+                margin-bottom: 30px;
+            }
+            
+            .course-section h2 {
+                font-size: 1.4em;
+                margin-bottom: 15px;
+            }
+            
+            .formula-item {
+                padding: 12px;
+            }
+            
+            .formula-info-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 16px;
+            }
+            
+            .formula {
+                font-size: 0.85em;
+                padding: 8px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .modal-content {
+                margin: 5% auto;
+                padding: 20px;
+                width: 95%;
+            }
+            
+            .modal-title {
+                font-size: 1.2em;
+            }
+            
+            .modal-formula {
+                font-size: 1em;
+                padding: 12px;
+            }
+            
+            .formula-name {
+                font-size: 0.9em;
+            }
+            
+            .formula-description {
+                font-size: 0.8em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            
+            header p {
+                font-size: 0.9em;
+            }
+            
+            .course-section h2 {
+                font-size: 1.2em;
+            }
+            
+            .formula {
+                font-size: 0.8em;
+            }
+            
+            footer {
+                padding: 20px 15px;
+            }
+            
+            footer p {
+                font-size: 1em;
+            }
+            
+            footer strong {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 Mechanical Engineering Formulas</h1>
+            <p>Comprehensive Formula Reference Guide</p>
+        </header>
+
+        <div class="content">
+            <!-- Mathematics & Science -->
+            <section class="course-section math-science">
+                <h2>📐 Mathematics & Science Fundamentals</h2>
+                <div class="formula-list">
+                    <div class="formula-item">
+                        <div class="formula-name">Derivative Definition</div>
+                        <div class="formula">f'(x) = lim(h→0) [f(x+h) - f(x)]/h</div>
+                        <div class="formula-description">Rate of change of a function</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Integration by Parts</div>
+                        <div class="formula">∫u dv = uv - ∫v du</div>
+                        <div class="formula-description">Integration technique</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Chain Rule</div>
+                        <div class="formula">d/dx[f(g(x))] = f'(g(x)) · g'(x)</div>
+                        <div class="formula-description">Derivative of composite function</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Product Rule</div>
+                        <div class="formula">d/dx[uv] = u'v + uv'</div>
+                        <div class="formula-description">Derivative of product</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Quotient Rule</div>
+                        <div class="formula">d/dx[u/v] = (u'v - uv')/v²</div>
+                        <div class="formula-description">Derivative of quotient</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Taylor Series</div>
+                        <div class="formula">f(x) = Σ(n=0 to ∞) [fⁿ(a)(x-a)ⁿ]/n!</div>
+                        <div class="formula-description">Function approximation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Fourier Series</div>
+                        <div class="formula">f(x) = a₀/2 + Σ(n=1 to ∞) [aₙcos(nx) + bₙsin(nx)]</div>
+                        <div class="formula-description">Periodic function representation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Laplace Transform</div>
+                        <div class="formula">F(s) = ∫(0 to ∞) e^(-st) f(t) dt</div>
+                        <div class="formula-description">Time domain to frequency domain</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Matrix Determinant (2x2)</div>
+                        <div class="formula">det(A) = ad - bc</div>
+                        <div class="formula-description">For matrix [[a,b],[c,d]]</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Eigenvalue Equation</div>
+                        <div class="formula">Av = λv</div>
+                        <div class="formula-description">Eigenvalue and eigenvector</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Newton's Second Law</div>
+                        <div class="formula">F = ma</div>
+                        <div class="formula-description">Force equals mass times acceleration</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Kinetic Energy</div>
+                        <div class="formula">KE = ½mv²</div>
+                        <div class="formula-description">Energy of motion</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Potential Energy</div>
+                        <div class="formula">PE = mgh</div>
+                        <div class="formula-description">Gravitational potential energy</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Work</div>
+                        <div class="formula">W = F·d = Fd cos(θ)</div>
+                        <div class="formula-description">Work done by force</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Power</div>
+                        <div class="formula">P = W/t = F·v</div>
+                        <div class="formula-description">Rate of doing work</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Momentum</div>
+                        <div class="formula">p = mv</div>
+                        <div class="formula-description">Linear momentum</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Conservation of Momentum</div>
+                        <div class="formula">Σpᵢ = Σpᵢ (before) = Σpᵢ (after)</div>
+                        <div class="formula-description">Total momentum conserved</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Angular Momentum</div>
+                        <div class="formula">L = r × p = Iω</div>
+                        <div class="formula-description">Rotational momentum</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Torque</div>
+                        <div class="formula">τ = r × F = Iα</div>
+                        <div class="formula-description">Rotational force</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Ideal Gas Law</div>
+                        <div class="formula">PV = nRT</div>
+                        <div class="formula-description">Pressure, volume, temperature relationship</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Coulomb's Law</div>
+                        <div class="formula">F = k(q₁q₂)/r²</div>
+                        <div class="formula-description">Electrostatic force</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Ohm's Law</div>
+                        <div class="formula">V = IR</div>
+                        <div class="formula-description">Voltage, current, resistance</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Electric Power</div>
+                        <div class="formula">P = VI = I²R = V²/R</div>
+                        <div class="formula-description">Electrical power</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Standard Deviation</div>
+                        <div class="formula">σ = √[Σ(xᵢ - μ)²/N]</div>
+                        <div class="formula-description">Measure of data spread</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Normal Distribution</div>
+                        <div class="formula">f(x) = (1/σ√(2π))e^(-½((x-μ)/σ)²)</div>
+                        <div class="formula-description">Probability density function</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statics -->
+            <section class="course-section core-engineering">
+                <h2>⚖️ Statics</h2>
+                <div class="formula-list">
+                    <div class="formula-item">
+                        <div class="formula-name">Force Equilibrium (2D)</div>
+                        <div class="formula">ΣFₓ = 0, ΣFᵧ = 0</div>
+                        <div class="formula-description">Static equilibrium conditions</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Moment Equilibrium</div>
+                        <div class="formula">ΣM = 0</div>
+                        <div class="formula-description">Rotational equilibrium</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Moment About a Point</div>
+                        <div class="formula">M = F × d</div>
+                        <div class="formula-description">Moment of force</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Vector Force</div>
+                        <div class="formula">F = Fₓi + Fᵧj + Fᵢk</div>
+                        <div class="formula-description">Force vector components</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Force Magnitude</div>
+                        <div class="formula">|F| = √(Fₓ² + Fᵧ² + Fᵢ²)</div>
+                        <div class="formula-description">Magnitude from components</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Dot Product</div>
+                        <div class="formula">A·B = |A||B|cos(θ)</div>
+                        <div class="formula-description">Scalar product</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Cross Product</div>
+                        <div class="formula">A × B = |A||B|sin(θ)n</div>
+                        <div class="formula-description">Vector product</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Centroid (2D)</div>
+                        <div class="formula">x̄ = Σ(xᵢAᵢ)/ΣAᵢ, ȳ = Σ(yᵢAᵢ)/ΣAᵢ</div>
+                        <div class="formula-description">Center of area</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Center of Mass</div>
+                        <div class="formula">r̄ = Σ(mᵢrᵢ)/Σmᵢ</div>
+                        <div class="formula-description">Mass-weighted position</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Moment of Inertia (Point Mass)</div>
+                        <div class="formula">I = mr²</div>
+                        <div class="formula-description">Rotational inertia</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Parallel Axis Theorem</div>
+                        <div class="formula">I = I₀ + md²</div>
+                        <div class="formula-description">Moment about parallel axis</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Friction Force</div>
+                        <div class="formula">f = μN</div>
+                        <div class="formula-description">Static/kinetic friction</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Truss Method of Joints</div>
+                        <div class="formula">ΣF = 0 at each joint</div>
+                        <div class="formula-description">Force analysis in trusses</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Method of Sections</div>
+                        <div class="formula">Cut section, apply equilibrium</div>
+                        <div class="formula-description">Truss analysis technique</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Beam Bending Moment</div>
+                        <div class="formula">M = -EI(d²y/dx²)</div>
+                        <div class="formula-description">Bending moment equation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Shear Force</div>
+                        <div class="formula">V = dM/dx</div>
+                        <div class="formula-description">Rate of change of moment</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Distributed Load</div>
+                        <div class="formula">V = ∫w(x)dx, M = ∫V(x)dx</div>
+                        <div class="formula-description">Shear and moment from load</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Cable with Uniform Load</div>
+                        <div class="formula">y = (wx²)/(2T₀)</div>
+                        <div class="formula-description">Parabolic cable shape</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Virtual Work</div>
+                        <div class="formula">δW = ΣFᵢ·δrᵢ = 0</div>
+                        <div class="formula-description">Equilibrium by virtual displacement</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Stability Criterion</div>
+                        <div class="formula">d²V/dq² > 0 (stable)</div>
+                        <div class="formula-description">Potential energy stability</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamics -->
+            <section class="course-section core-engineering">
+                <h2>🚀 Dynamics</h2>
+                <div class="formula-list">
+                    <div class="formula-item">
+                        <div class="formula-name">Position Vector</div>
+                        <div class="formula">r(t) = x(t)i + y(t)j + z(t)k</div>
+                        <div class="formula-description">Position as function of time</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Velocity</div>
+                        <div class="formula">v = dr/dt</div>
+                        <div class="formula-description">Rate of change of position</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Acceleration</div>
+                        <div class="formula">a = dv/dt = d²r/dt²</div>
+                        <div class="formula-description">Rate of change of velocity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Constant Acceleration</div>
+                        <div class="formula">v = v₀ + at</div>
+                        <div class="formula-description">Velocity with constant acceleration</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Position (Constant a)</div>
+                        <div class="formula">x = x₀ + v₀t + ½at²</div>
+                        <div class="formula-description">Position with constant acceleration</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Velocity Squared</div>
+                        <div class="formula">v² = v₀² + 2a(x - x₀)</div>
+                        <div class="formula-description">Velocity-position relationship</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Angular Velocity</div>
+                        <div class="formula">ω = dθ/dt</div>
+                        <div class="formula-description">Rate of angular displacement</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Angular Acceleration</div>
+                        <div class="formula">α = dω/dt = d²θ/dt²</div>
+                        <div class="formula-description">Rate of change of angular velocity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Tangential Velocity</div>
+                        <div class="formula">v = rω</div>
+                        <div class="formula-description">Linear velocity from rotation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Centripetal Acceleration</div>
+                        <div class="formula">aₐ = v²/r = rω²</div>
+                        <div class="formula-description">Radial acceleration</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Tangential Acceleration</div>
+                        <div class="formula">aₜ = rα</div>
+                        <div class="formula-description">Tangential component</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Newton's Second Law</div>
+                        <div class="formula">F = ma = m(dv/dt)</div>
+                        <div class="formula-description">Force-acceleration relationship</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Rotational Newton's Law</div>
+                        <div class="formula">τ = Iα</div>
+                        <div class="formula-description">Torque-angular acceleration</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Work-Energy Theorem</div>
+                        <div class="formula">W = ΔKE = ½mv² - ½mv₀²</div>
+                        <div class="formula-description">Work equals change in kinetic energy</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Rotational Kinetic Energy</div>
+                        <div class="formula">KE = ½Iω²</div>
+                        <div class="formula-description">Energy of rotation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Conservation of Energy</div>
+                        <div class="formula">KE₁ + PE₁ = KE₂ + PE₂</div>
+                        <div class="formula-description">Total energy conserved</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Impulse</div>
+                        <div class="formula">J = ∫F dt = Δp</div>
+                        <div class="formula-description">Change in momentum</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Coefficient of Restitution</div>
+                        <div class="formula">e = (v₂ - v₁)/(u₁ - u₂)</div>
+                        <div class="formula-description">Collision elasticity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Relative Velocity</div>
+                        <div class="formula">vᵣₑₗ = v₂ - v₁</div>
+                        <div class="formula-description">Velocity difference</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Coriolis Acceleration</div>
+                        <div class="formula">aₐ = 2Ω × v</div>
+                        <div class="formula-description">Rotating frame effect</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Gyroscopic Precession</div>
+                        <div class="formula">Ω = τ/(Iω)</div>
+                        <div class="formula-description">Precession angular velocity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Lagrange's Equation</div>
+                        <div class="formula">d/dt(∂L/∂q̇) - ∂L/∂q = Q</div>
+                        <div class="formula-description">Generalized coordinates</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Hamiltonian</div>
+                        <div class="formula">H = Σpᵢq̇ᵢ - L</div>
+                        <div class="formula-description">Energy function</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">D'Alembert's Principle</div>
+                        <div class="formula">Σ(Fᵢ - mᵢaᵢ)·δrᵢ = 0</div>
+                        <div class="formula-description">Virtual work in dynamics</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Thermodynamics -->
+            <section class="course-section core-engineering">
+                <h2>🌡️ Thermodynamics</h2>
+                <div class="formula-list">
+                    <div class="formula-item">
+                        <div class="formula-name">First Law of Thermodynamics</div>
+                        <div class="formula">ΔU = Q - W</div>
+                        <div class="formula-description">Energy conservation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Enthalpy</div>
+                        <div class="formula">H = U + PV</div>
+                        <div class="formula-description">Total heat content</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Entropy</div>
+                        <div class="formula">dS = dQᵣₑᵥ/T</div>
+                        <div class="formula-description">Reversible heat transfer</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Second Law</div>
+                        <div class="formula">ΔS ≥ ∫dQ/T</div>
+                        <div class="formula-description">Entropy inequality</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Gibbs Free Energy</div>
+                        <div class="formula">G = H - TS</div>
+                        <div class="formula-description">Spontaneity indicator</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Helmholtz Free Energy</div>
+                        <div class="formula">A = U - TS</div>
+                        <div class="formula-description">Work potential</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Ideal Gas Internal Energy</div>
+                        <div class="formula">ΔU = nCᵥΔT</div>
+                        <div class="formula-description">Constant volume process</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Ideal Gas Enthalpy Change</div>
+                        <div class="formula">ΔH = nCₚΔT</div>
+                        <div class="formula-description">Constant pressure process</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Heat Capacity Ratio</div>
+                        <div class="formula">γ = Cₚ/Cᵥ</div>
+                        <div class="formula-description">Specific heat ratio</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Isentropic Process</div>
+                        <div class="formula">PV^γ = constant</div>
+                        <div class="formula-description">Adiabatic reversible</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Isothermal Work</div>
+                        <div class="formula">W = nRT ln(V₂/V₁)</div>
+                        <div class="formula-description">Constant temperature</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Adiabatic Work</div>
+                        <div class="formula">W = (P₁V₁ - P₂V₂)/(γ-1)</div>
+                        <div class="formula-description">No heat transfer</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Carnot Efficiency</div>
+                        <div class="formula">η = 1 - Tₗ/Tₕ</div>
+                        <div class="formula-description">Maximum efficiency</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Thermal Efficiency</div>
+                        <div class="formula">η = W/Qₕ = 1 - Qₗ/Qₕ</div>
+                        <div class="formula-description">Heat engine efficiency</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Coefficient of Performance (Refrigerator)</div>
+                        <div class="formula">COP = Qₗ/W</div>
+                        <div class="formula-description">Cooling efficiency</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">COP (Heat Pump)</div>
+                        <div class="formula">COP = Qₕ/W</div>
+                        <div class="formula-description">Heating efficiency</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Clausius-Clapeyron</div>
+                        <div class="formula">dP/dT = L/(TΔV)</div>
+                        <div class="formula-description">Phase transition</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Maxwell Relations</div>
+                        <div class="formula">(∂T/∂V)ₛ = -(∂P/∂S)ᵥ</div>
+                        <div class="formula-description">Thermodynamic relations</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Van der Waals Equation</div>
+                        <div class="formula">(P + a/V²)(V - b) = RT</div>
+                        <div class="formula-description">Real gas equation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Joule-Thomson Coefficient</div>
+                        <div class="formula">μ = (∂T/∂P)ₕ</div>
+                        <div class="formula-description">Temperature change with pressure</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Exergy</div>
+                        <div class="formula">X = (U - U₀) + P₀(V - V₀) - T₀(S - S₀)</div>
+                        <div class="formula-description">Available work</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Mass Flow Rate</div>
+                        <div class="formula">ṁ = ρAV</div>
+                        <div class="formula-description">Mass per unit time</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Energy Balance (Steady State)</div>
+                        <div class="formula">ṁ(h₂ - h₁) = Q̇ - Ẇ</div>
+                        <div class="formula-description">Control volume energy</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Isentropic Efficiency (Turbine)</div>
+                        <div class="formula">ηₜ = (h₁ - h₂)/(h₁ - h₂ₛ)</div>
+                        <div class="formula-description">Turbine efficiency</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Isentropic Efficiency (Compressor)</div>
+                        <div class="formula">ηc = (h₂ₛ - h₁)/(h₂ - h₁)</div>
+                        <div class="formula-description">Compressor efficiency</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Otto Cycle Efficiency</div>
+                        <div class="formula">η = 1 - 1/r^(γ-1)</div>
+                        <div class="formula-description">Compression ratio r</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Diesel Cycle Efficiency</div>
+                        <div class="formula">η = 1 - (1/r^(γ-1))[(rₐ^γ - 1)/(γ(rₐ - 1))]</div>
+                        <div class="formula-description">Cutoff ratio rₐ</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Brayton Cycle Efficiency</div>
+                        <div class="formula">η = 1 - 1/rₚ^((γ-1)/γ)</div>
+                        <div class="formula-description">Pressure ratio rₚ</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Rankine Cycle Efficiency</div>
+                        <div class="formula">η = (h₁ - h₂)/(h₁ - h₄)</div>
+                        <div class="formula-description">Steam cycle</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fluid Mechanics -->
+            <section class="course-section core-engineering">
+                <h2>💧 Fluid Mechanics</h2>
+                <div class="formula-list">
+                    <div class="formula-item">
+                        <div class="formula-name">Density</div>
+                        <div class="formula">ρ = m/V</div>
+                        <div class="formula-description">Mass per unit volume</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Specific Weight</div>
+                        <div class="formula">γ = ρg</div>
+                        <div class="formula-description">Weight per unit volume</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Pressure</div>
+                        <div class="formula">P = F/A</div>
+                        <div class="formula-description">Force per unit area</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Hydrostatic Pressure</div>
+                        <div class="formula">P = P₀ + ρgh</div>
+                        <div class="formula-description">Pressure at depth</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Buoyant Force</div>
+                        <div class="formula">Fᵦ = ρgV</div>
+                        <div class="formula-description">Archimedes' principle</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Continuity Equation</div>
+                        <div class="formula">A₁V₁ = A₂V₂</div>
+                        <div class="formula-description">Mass conservation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Bernoulli's Equation</div>
+                        <div class="formula">P + ½ρv² + ρgh = constant</div>
+                        <div class="formula-description">Energy conservation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Reynolds Number</div>
+                        <div class="formula">Re = ρVD/μ = VD/ν</div>
+                        <div class="formula-description">Flow regime indicator</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Dynamic Viscosity</div>
+                        <div class="formula">τ = μ(du/dy)</div>
+                        <div class="formula-description">Newton's law of viscosity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Kinematic Viscosity</div>
+                        <div class="formula">ν = μ/ρ</div>
+                        <div class="formula-description">Dynamic viscosity/density</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Froude Number</div>
+                        <div class="formula">Fr = V/√(gL)</div>
+                        <div class="formula-description">Gravity effects</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Mach Number</div>
+                        <div class="formula">M = V/c</div>
+                        <div class="formula-description">Speed of sound ratio</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Speed of Sound</div>
+                        <div class="formula">c = √(γRT)</div>
+                        <div class="formula-description">Ideal gas</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Momentum Equation</div>
+                        <div class="formula">F = ṁ(V₂ - V₁)</div>
+                        <div class="formula-description">Force from momentum change</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Darcy-Weisbach Equation</div>
+                        <div class="formula">ΔP = f(L/D)(ρV²/2)</div>
+                        <div class="formula-description">Pipe friction loss</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Friction Factor (Laminar)</div>
+                        <div class="formula">f = 64/Re</div>
+                        <div class="formula-description">Hagen-Poiseuille flow</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Colebrook Equation</div>
+                        <div class="formula">1/√f = -2log₁₀(ε/(3.7D) + 2.51/(Re√f))</div>
+                        <div class="formula-description">Turbulent friction factor</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Hagen-Poiseuille Flow</div>
+                        <div class="formula">Q = (πR⁴ΔP)/(8μL)</div>
+                        <div class="formula-description">Laminar pipe flow</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Drag Force</div>
+                        <div class="formula">Fₐ = ½CₐρAV²</div>
+                        <div class="formula-description">Fluid resistance</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Lift Force</div>
+                        <div class="formula">Fₗ = ½CₗρAV²</div>
+                        <div class="formula-description">Aerodynamic lift</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Stokes' Law</div>
+                        <div class="formula">F = 6πμrv</div>
+                        <div class="formula-description">Drag on sphere (low Re)</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Navier-Stokes Equation</div>
+                        <div class="formula">ρ(∂v/∂t + v·∇v) = -∇P + μ∇²v + ρg</div>
+                        <div class="formula-description">Fluid motion equation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Euler's Equation</div>
+                        <div class="formula">ρ(∂v/∂t + v·∇v) = -∇P</div>
+                        <div class="formula-description">Inviscid flow</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Pitot Tube</div>
+                        <div class="formula">V = √(2(P₀ - P)/ρ)</div>
+                        <div class="formula-description">Velocity measurement</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Venturi Effect</div>
+                        <div class="formula">V₂ = V₁√(A₁/A₂)</div>
+                        <div class="formula-description">Velocity increase</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Orifice Flow</div>
+                        <div class="formula">Q = CₐA√(2ΔP/ρ)</div>
+                        <div class="formula-description">Discharge coefficient Cₐ</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Boundary Layer Thickness</div>
+                        <div class="formula">δ ≈ 5x/√Reₓ</div>
+                        <div class="formula-description">Laminar boundary layer</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Blasius Solution</div>
+                        <div class="formula">δ = 5x/√Reₓ</div>
+                        <div class="formula-description">Flat plate boundary layer</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Prandtl Number</div>
+                        <div class="formula">Pr = μCₚ/k = ν/α</div>
+                        <div class="formula-description">Momentum to thermal diffusivity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Weber Number</div>
+                        <div class="formula">We = ρV²L/σ</div>
+                        <div class="formula-description">Surface tension effects</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Heat Transfer -->
+            <section class="course-section core-engineering">
+                <h2>🔥 Heat Transfer</h2>
+                <div class="formula-list">
+                    <div class="formula-item">
+                        <div class="formula-name">Fourier's Law (Conduction)</div>
+                        <div class="formula">q = -kA(dT/dx)</div>
+                        <div class="formula-description">Heat flux by conduction</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Heat Conduction (Plane Wall)</div>
+                        <div class="formula">q = kA(T₁ - T₂)/L</div>
+                        <div class="formula-description">Steady-state conduction</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Thermal Resistance</div>
+                        <div class="formula">R = L/(kA)</div>
+                        <div class="formula-description">Conduction resistance</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Heat Conduction (Cylinder)</div>
+                        <div class="formula">q = 2πkL(T₁ - T₂)/ln(r₂/r₁)</div>
+                        <div class="formula-description">Radial conduction</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Heat Conduction (Sphere)</div>
+                        <div class="formula">q = 4πk(T₁ - T₂)/(1/r₁ - 1/r₂)</div>
+                        <div class="formula-description">Spherical conduction</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Heat Diffusion Equation</div>
+                        <div class="formula">∂T/∂t = α∇²T</div>
+                        <div class="formula-description">Transient conduction</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Thermal Diffusivity</div>
+                        <div class="formula">α = k/(ρCₚ)</div>
+                        <div class="formula-description">Heat propagation rate</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Biot Number</div>
+                        <div class="formula">Bi = hL/k</div>
+                        <div class="formula-description">Convection to conduction</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Fourier Number</div>
+                        <div class="formula">Fo = αt/L²</div>
+                        <div class="formula-description">Dimensionless time</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Newton's Law of Cooling</div>
+                        <div class="formula">q = hA(Tₛ - T∞)</div>
+                        <div class="formula-description">Convective heat transfer</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Nusselt Number</div>
+                        <div class="formula">Nu = hL/k</div>
+                        <div class="formula-description">Convective heat transfer</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Reynolds Analogy</div>
+                        <div class="formula">Nu = (f/2)Re·Pr</div>
+                        <div class="formula-description">Heat-momentum transfer</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Dittus-Boelter Equation</div>
+                        <div class="formula">Nu = 0.023Re^0.8Pr^n</div>
+                        <div class="formula-description">Turbulent pipe flow (n=0.4 heating, 0.3 cooling)</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Stefan-Boltzmann Law</div>
+                        <div class="formula">q = εσT⁴</div>
+                        <div class="formula-description">Radiative heat flux</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Radiation Heat Transfer</div>
+                        <div class="formula">q₁₂ = σA₁F₁₂(T₁⁴ - T₂⁴)</div>
+                        <div class="formula-description">Between two surfaces</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">View Factor</div>
+                        <div class="formula">F₁₂ = (1/A₁)∫∫(cosθ₁cosθ₂/πr²)dA₁dA₂</div>
+                        <div class="formula-description">Geometric factor</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Heat Exchanger (LMTD)</div>
+                        <div class="formula">q = UAΔTₗₘ</div>
+                        <div class="formula-description">Log mean temperature difference</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">LMTD</div>
+                        <div class="formula">ΔTₗₘ = (ΔT₁ - ΔT₂)/ln(ΔT₁/ΔT₂)</div>
+                        <div class="formula-description">Log mean temperature</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">NTU Method</div>
+                        <div class="formula">ε = 1 - exp(-NTU(1-Cᵣ))</div>
+                        <div class="formula-description">Effectiveness-NTU</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Number of Transfer Units</div>
+                        <div class="formula">NTU = UA/Cₘᵢₙ</div>
+                        <div class="formula-description">Heat exchanger size</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Effectiveness</div>
+                        <div class="formula">ε = q/qₘₐₓ = Cₕ(Tₕᵢ - Tₕₒ)/Cₘᵢₙ(Tₕᵢ - Tₐᵢ)</div>
+                        <div class="formula-description">Heat exchanger performance</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Fin Efficiency</div>
+                        <div class="formula">ηf = tanh(mL)/(mL)</div>
+                        <div class="formula-description">Rectangular fin</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Fin Parameter</div>
+                        <div class="formula">m = √(hP/(kAₐ))</div>
+                        <div class="formula-description">Fin characteristic</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Grashof Number</div>
+                        <div class="formula">Gr = gβΔTL³/ν²</div>
+                        <div class="formula-description">Natural convection</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Rayleigh Number</div>
+                        <div class="formula">Ra = Gr·Pr = gβΔTL³/(να)</div>
+                        <div class="formula-description">Natural convection parameter</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Lumped Capacitance</div>
+                        <div class="formula">(T - T∞)/(Tᵢ - T∞) = exp(-t/τ)</div>
+                        <div class="formula-description">Time constant τ = ρVCₚ/(hA)</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Heisler Chart Parameter</div>
+                        <div class="formula">x = αt/L², m = k/(hL)</div>
+                        <div class="formula-description">Transient conduction charts</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Critical Insulation Radius</div>
+                        <div class="formula">rᵢ = k/h</div>
+                        <div class="formula-description">Cylinder insulation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Overall Heat Transfer Coefficient</div>
+                        <div class="formula">1/U = 1/hᵢ + L/k + 1/hₒ</div>
+                        <div class="formula-description">Composite wall</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Materials Science -->
+            <section class="course-section core-engineering">
+                <h2>⚙️ Materials Science</h2>
+                <div class="formula-list">
+                    <div class="formula-item">
+                        <div class="formula-name">Stress</div>
+                        <div class="formula">σ = F/A</div>
+                        <div class="formula-description">Force per unit area</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Strain</div>
+                        <div class="formula">ε = ΔL/L₀</div>
+                        <div class="formula-description">Deformation per unit length</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Young's Modulus</div>
+                        <div class="formula">E = σ/ε</div>
+                        <div class="formula-description">Elastic modulus</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Shear Modulus</div>
+                        <div class="formula">G = τ/γ</div>
+                        <div class="formula-description">Modulus of rigidity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Bulk Modulus</div>
+                        <div class="formula">K = -V(∂P/∂V)</div>
+                        <div class="formula-description">Volume elasticity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Poisson's Ratio</div>
+                        <div class="formula">ν = -εₜ/εₗ</div>
+                        <div class="formula-description">Lateral to axial strain</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Elastic Moduli Relationship</div>
+                        <div class="formula">E = 2G(1 + ν) = 3K(1 - 2ν)</div>
+                        <div class="formula-description">Interrelationship</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Hooke's Law (3D)</div>
+                        <div class="formula">σᵢⱼ = Cᵢⱼₖₗεₖₗ</div>
+                        <div class="formula-description">Generalized elasticity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Thermal Stress</div>
+                        <div class="formula">σ = EαΔT</div>
+                        <div class="formula-description">Stress from temperature change</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Thermal Expansion</div>
+                        <div class="formula">ΔL = αL₀ΔT</div>
+                        <div class="formula-description">Length change</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Toughness</div>
+                        <div class="formula">U = ∫σ dε</div>
+                        <div class="formula-description">Energy to fracture</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Stress Intensity Factor</div>
+                        <div class="formula">K = Yσ√(πa)</div>
+                        <div class="formula-description">Crack tip stress</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Fracture Toughness</div>
+                        <div class="formula">Kᵢ = Yσ√(πa)</div>
+                        <div class="formula-description">Critical stress intensity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Fatigue Life (S-N)</div>
+                        <div class="formula">N = (σₐ/σ'f)^(1/b)</div>
+                        <div class="formula-description">Cycles to failure</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Crack Growth Rate</div>
+                        <div class="formula">da/dN = C(ΔK)^m</div>
+                        <div class="formula-description">Paris law</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Hardness (Brinell)</div>
+                        <div class="formula">HB = 2P/(πD(D - √(D² - d²)))</div>
+                        <div class="formula-description">Indentation hardness</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Creep Rate</div>
+                        <div class="formula">ε̇ = Aσⁿexp(-Q/RT)</div>
+                        <div class="formula-description">Temperature-dependent</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Arrhenius Equation</div>
+                        <div class="formula">k = Aexp(-Eₐ/RT)</div>
+                        <div class="formula-description">Reaction rate</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Diffusion Coefficient</div>
+                        <div class="formula">D = D₀exp(-Q/RT)</div>
+                        <div class="formula-description">Fick's first law constant</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Fick's First Law</div>
+                        <div class="formula">J = -D(∂C/∂x)</div>
+                        <div class="formula-description">Diffusion flux</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Fick's Second Law</div>
+                        <div class="formula">∂C/∂t = D(∂²C/∂x²)</div>
+                        <div class="formula-description">Diffusion equation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Grain Size</div>
+                        <div class="formula">d = 1/√N</div>
+                        <div class="formula-description">Mean intercept length</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Hall-Petch Relationship</div>
+                        <div class="formula">σᵧ = σ₀ + k/√d</div>
+                        <div class="formula-description">Grain size strengthening</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Phase Rule</div>
+                        <div class="formula">F = C - P + 2</div>
+                        <div class="formula-description">Gibbs phase rule</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Lever Rule</div>
+                        <div class="formula">Wα = (C₀ - Cₗ)/(Cα - Cₗ)</div>
+                        <div class="formula-description">Phase fraction</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Schmid Factor</div>
+                        <div class="formula">τᵣ = σcos(φ)cos(λ)</div>
+                        <div class="formula-description">Resolved shear stress</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Dislocation Density</div>
+                        <div class="formula">ρ = 1/(L²)</div>
+                        <div class="formula-description">Dislocations per unit area</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Taylor Factor</div>
+                        <div class="formula">M = σ/τᵣ</div>
+                        <div class="formula-description">Polycrystal strengthening</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Machine Design -->
+            <section class="course-section core-engineering">
+                <h2>🔩 Machine Design</h2>
+                <div class="formula-list">
+                    <div class="formula-item">
+                        <div class="formula-name">Factor of Safety</div>
+                        <div class="formula">n = σᵧ/σ = τᵧ/τ</div>
+                        <div class="formula-description">Design safety margin</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Maximum Shear Stress Theory</div>
+                        <div class="formula">τₘₐₓ = (σ₁ - σ₃)/2</div>
+                        <div class="formula-description">Tresca criterion</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Von Mises Stress</div>
+                        <div class="formula">σ' = √(½[(σ₁-σ₂)² + (σ₂-σ₃)² + (σ₃-σ₁)²])</div>
+                        <div class="formula-description">Distortion energy theory</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Principal Stresses</div>
+                        <div class="formula">σ₁,₂ = (σₓ+σᵧ)/2 ± √[((σₓ-σᵧ)/2)² + τₓᵧ²]</div>
+                        <div class="formula-description">2D stress transformation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Mohr's Circle Radius</div>
+                        <div class="formula">R = √[((σₓ-σᵧ)/2)² + τₓᵧ²]</div>
+                        <div class="formula-description">Maximum shear stress</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Beam Deflection (Simply Supported)</div>
+                        <div class="formula">δ = (5wL⁴)/(384EI)</div>
+                        <div class="formula-description">Uniform load</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Beam Deflection (Cantilever)</div>
+                        <div class="formula">δ = (PL³)/(3EI)</div>
+                        <div class="formula-description">Point load at end</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Bending Stress</div>
+                        <div class="formula">σ = Mc/I = M/S</div>
+                        <div class="formula-description">Flexure formula</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Shear Stress (Beam)</div>
+                        <div class="formula">τ = VQ/(Ib)</div>
+                        <div class="formula-description">Transverse shear</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Torsion</div>
+                        <div class="formula">τ = Tr/J</div>
+                        <div class="formula-description">Circular shaft</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Polar Moment of Inertia</div>
+                        <div class="formula">J = πr⁴/2 = πd⁴/32</div>
+                        <div class="formula-description">Circular cross-section</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Angle of Twist</div>
+                        <div class="formula">φ = TL/(GJ)</div>
+                        <div class="formula-description">Torsional deformation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Buckling Load (Euler)</div>
+                        <div class="formula">Pᵣ = π²EI/(KL)²</div>
+                        <div class="formula-description">Critical buckling</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Slenderness Ratio</div>
+                        <div class="formula">λ = KL/r</div>
+                        <div class="formula-description">Column parameter</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Radius of Gyration</div>
+                        <div class="formula">r = √(I/A)</div>
+                        <div class="formula-description">Geometric property</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Contact Stress (Hertz)</div>
+                        <div class="formula">σₘₐₓ = (3P)/(2πa²)</div>
+                        <div class="formula-description">Spherical contact</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Contact Radius</div>
+                        <div class="formula">a = [3PR/(4E*)]^(1/3)</div>
+                        <div class="formula-description">Hertz contact</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Gear Ratio</div>
+                        <div class="formula">i = N₂/N₁ = ω₁/ω₂ = T₂/T₁</div>
+                        <div class="formula-description">Speed and torque relationship</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Gear Module</div>
+                        <div class="formula">m = d/N</div>
+                        <div class="formula-description">Pitch diameter to teeth</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Gear Pressure Angle</div>
+                        <div class="formula">φ = arccos(rᵦ/r)</div>
+                        <div class="formula-description">Base to pitch radius</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Belt Drive Ratio</div>
+                        <div class="formula">i = D₂/D₁ = ω₁/ω₂</div>
+                        <div class="formula-description">Pulley diameter ratio</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Belt Tension Ratio</div>
+                        <div class="formula">T₁/T₂ = e^(μφ)</div>
+                        <div class="formula-description">Capstan equation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Bearing Life (L₁₀)</div>
+                        <div class="formula">L₁₀ = (C/P)^p</div>
+                        <div class="formula-description">p=3 for ball, p=10/3 for roller</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Spring Rate</div>
+                        <div class="formula">k = Gd⁴/(8D³n)</div>
+                        <div class="formula-description">Helical spring</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Spring Stress</div>
+                        <div class="formula">τ = (8FD)/(πd³)K</div>
+                        <div class="formula-description">Wahl correction factor K</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Wahl Factor</div>
+                        <div class="formula">K = (4C-1)/(4C-4) + 0.615/C</div>
+                        <div class="formula-description">Spring index C = D/d</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Thread Stress Area</div>
+                        <div class="formula">Aₛ = π/4[(d₂ + d₃)/2]²</div>
+                        <div class="formula-description">Bolt tensile area</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Bolt Preload</div>
+                        <div class="formula">Fᵢ = 0.75Fₚ</div>
+                        <div class="formula-description">Proof load</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Fatigue Stress Concentration</div>
+                        <div class="formula">Kf = 1 + q(Kt - 1)</div>
+                        <div class="formula-description">Notch sensitivity q</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Goodman Line</div>
+                        <div class="formula">σₐ/Sₑ + σₘ/Sᵧ = 1/n</div>
+                        <div class="formula-description">Mean stress effect</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Control Systems -->
+            <section class="course-section core-engineering">
+                <h2>🎛️ Control Systems</h2>
+                <div class="formula-list">
+                    <div class="formula-item">
+                        <div class="formula-name">Transfer Function</div>
+                        <div class="formula">G(s) = Y(s)/U(s)</div>
+                        <div class="formula-description">Output to input ratio</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Laplace Transform</div>
+                        <div class="formula">F(s) = ∫₀^∞ f(t)e^(-st)dt</div>
+                        <div class="formula-description">Time to frequency domain</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">First Order System</div>
+                        <div class="formula">G(s) = K/(τs + 1)</div>
+                        <div class="formula-description">Time constant τ</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Second Order System</div>
+                        <div class="formula">G(s) = ωₙ²/(s² + 2ζωₙs + ωₙ²)</div>
+                        <div class="formula-description">Natural frequency ωₙ, damping ζ</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Damping Ratio</div>
+                        <div class="formula">ζ = c/(2√(mk))</div>
+                        <div class="formula-description">Oscillation damping</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Natural Frequency</div>
+                        <div class="formula">ωₙ = √(k/m)</div>
+                        <div class="formula-description">Undamped frequency</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Damped Frequency</div>
+                        <div class="formula">ωd = ωₙ√(1 - ζ²)</div>
+                        <div class="formula-description">Oscillation frequency</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Peak Time</div>
+                        <div class="formula">tp = π/(ωₙ√(1 - ζ²))</div>
+                        <div class="formula-description">Time to peak overshoot</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Percent Overshoot</div>
+                        <div class="formula">%OS = 100e^(-ζπ/√(1-ζ²))</div>
+                        <div class="formula-description">Maximum overshoot</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Settling Time (2%)</div>
+                        <div class="formula">ts = 4/(ζωₙ)</div>
+                        <div class="formula-description">Time to settle</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Rise Time</div>
+                        <div class="formula">tr ≈ 1.8/ωₙ</div>
+                        <div class="formula-description">Time to reach steady state</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Closed Loop Transfer Function</div>
+                        <div class="formula">T(s) = G(s)/(1 + G(s)H(s))</div>
+                        <div class="formula-description">Feedback system</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Characteristic Equation</div>
+                        <div class="formula">1 + G(s)H(s) = 0</div>
+                        <div class="formula-description">System poles</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Steady State Error (Step)</div>
+                        <div class="formula">ess = 1/(1 + Kp)</div>
+                        <div class="formula-description">Position error constant Kp</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Steady State Error (Ramp)</div>
+                        <div class="formula">ess = 1/Kv</div>
+                        <div class="formula-description">Velocity error constant Kv</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">PID Controller</div>
+                        <div class="formula">Gc(s) = Kp + Ki/s + Kds</div>
+                        <div class="formula-description">Proportional-Integral-Derivative</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Root Locus Angle Condition</div>
+                        <div class="formula">Σ∠(s - zi) - Σ∠(s - pi) = 180° + 360°k</div>
+                        <div class="formula-description">Locus path</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Root Locus Magnitude</div>
+                        <div class="formula">K = Π|s - pi|/Π|s - zi|</div>
+                        <div class="formula-description">Gain calculation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Bode Plot Magnitude</div>
+                        <div class="formula">|G(jω)|dB = 20log₁₀|G(jω)|</div>
+                        <div class="formula-description">Decibel magnitude</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Bode Plot Phase</div>
+                        <div class="formula">∠G(jω) = arg(G(jω))</div>
+                        <div class="formula-description">Phase angle</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Gain Margin</div>
+                        <div class="formula">GM = 1/|G(jωₚₘ)|</div>
+                        <div class="formula-description">Phase crossover frequency</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Phase Margin</div>
+                        <div class="formula">PM = 180° + ∠G(jωₐₘ)</div>
+                        <div class="formula-description">Gain crossover frequency</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Nyquist Criterion</div>
+                        <div class="formula">N = Z - P</div>
+                        <div class="formula-description">Encirclements = zeros - poles</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">State Space Representation</div>
+                        <div class="formula">ẋ = Ax + Bu, y = Cx + Du</div>
+                        <div class="formula-description">State equations</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Observability Matrix</div>
+                        <div class="formula">O = [C; CA; CA²; ...; CA^(n-1)]</div>
+                        <div class="formula-description">System observability</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Controllability Matrix</div>
+                        <div class="formula">Co = [B AB A²B ... A^(n-1)B]</div>
+                        <div class="formula-description">System controllability</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Kalman Filter</div>
+                        <div class="formula">x̂ = Ax̂ + K(y - Cx̂)</div>
+                        <div class="formula-description">State estimation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Lyapunov Stability</div>
+                        <div class="formula">V(x) > 0, V̇(x) < 0</div>
+                        <div class="formula-description">Stability condition</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Programming & Numerical Methods -->
+            <section class="course-section skills">
+                <h2>💻 Programming & Numerical Methods</h2>
+                <div class="formula-list">
+                    <div class="formula-item">
+                        <div class="formula-name">Newton-Raphson Method</div>
+                        <div class="formula">xₙ₊₁ = xₙ - f(xₙ)/f'(xₙ)</div>
+                        <div class="formula-description">Root finding iteration</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Trapezoidal Rule</div>
+                        <div class="formula">∫f(x)dx ≈ (h/2)[f₀ + 2Σfᵢ + fₙ]</div>
+                        <div class="formula-description">Numerical integration</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Simpson's Rule</div>
+                        <div class="formula">∫f(x)dx ≈ (h/3)[f₀ + 4f₁ + 2f₂ + ... + fₙ]</div>
+                        <div class="formula-description">Parabolic integration</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Euler's Method</div>
+                        <div class="formula">yₙ₊₁ = yₙ + hf(xₙ, yₙ)</div>
+                        <div class="formula-description">ODE numerical solution</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Runge-Kutta 4th Order</div>
+                        <div class="formula">yₙ₊₁ = yₙ + (h/6)(k₁ + 2k₂ + 2k₃ + k₄)</div>
+                        <div class="formula-description">Higher accuracy ODE solver</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Forward Difference</div>
+                        <div class="formula">f'(x) ≈ [f(x+h) - f(x)]/h</div>
+                        <div class="formula-description">Numerical derivative</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Central Difference</div>
+                        <div class="formula">f'(x) ≈ [f(x+h) - f(x-h)]/(2h)</div>
+                        <div class="formula-description">More accurate derivative</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Gaussian Elimination</div>
+                        <div class="formula">Ax = b → Ux = c</div>
+                        <div class="formula-description">Linear system solver</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">LU Decomposition</div>
+                        <div class="formula">A = LU</div>
+                        <div class="formula-description">Matrix factorization</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Jacobi Iteration</div>
+                        <div class="formula">xᵢ^(k+1) = (bᵢ - Σaᵢⱼxⱼ^(k))/aᵢᵢ</div>
+                        <div class="formula-description">Iterative linear solver</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Gauss-Seidel Method</div>
+                        <div class="formula">xᵢ^(k+1) = (bᵢ - Σaᵢⱼxⱼ^(k+1) - Σaᵢⱼxⱼ^(k))/aᵢᵢ</div>
+                        <div class="formula-description">Improved iteration</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Least Squares</div>
+                        <div class="formula">x = (AᵀA)⁻¹Aᵀb</div>
+                        <div class="formula-description">Overdetermined system</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Interpolation (Linear)</div>
+                        <div class="formula">y = y₁ + (y₂ - y₁)(x - x₁)/(x₂ - x₁)</div>
+                        <div class="formula-description">Linear interpolation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Lagrange Interpolation</div>
+                        <div class="formula">P(x) = ΣyᵢLᵢ(x), Lᵢ(x) = Π(x-xⱼ)/(xᵢ-xⱼ)</div>
+                        <div class="formula-description">Polynomial interpolation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Finite Difference (2nd Order)</div>
+                        <div class="formula">f''(x) ≈ [f(x+h) - 2f(x) + f(x-h)]/h²</div>
+                        <div class="formula-description">Second derivative</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Error (Trapezoidal)</div>
+                        <div class="formula">E = -(b-a)h²f''(ξ)/12</div>
+                        <div class="formula-description">Integration error</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Error (Simpson's)</div>
+                        <div class="formula">E = -(b-a)h⁴f⁽⁴⁾(ξ)/180</div>
+                        <div class="formula-description">Higher order error</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Condition Number</div>
+                        <div class="formula">κ(A) = ||A|| ||A⁻¹||</div>
+                        <div class="formula-description">Matrix sensitivity</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Eigenvalue Problem</div>
+                        <div class="formula">Ax = λx</div>
+                        <div class="formula-description">Characteristic equation</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Power Method</div>
+                        <div class="formula">xₖ₊₁ = Axₖ/||Axₖ||</div>
+                        <div class="formula-description">Dominant eigenvalue</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Fast Fourier Transform</div>
+                        <div class="formula">Xₖ = Σxₙe^(-2πikn/N)</div>
+                        <div class="formula-description">Frequency domain transform</div>
+                    </div>
+                    <div class="formula-item">
+                        <div class="formula-name">Monte Carlo Integration</div>
+                        <div class="formula">I ≈ (b-a)⟨f(x)⟩</div>
+                        <div class="formula-description">Random sampling</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>
+                <strong>TgSofts</strong> | +972 59 140 07
+            </p>
+        </footer>
+    </div>
+
+    <!-- Modal for Variable Definitions -->
+    <div id="variableModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">📚 Variable Definitions</h2>
+            <div class="modal-formula" id="modalFormula"></div>
+            <ul class="variables-list" id="variablesList"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Function to play sweet sound using Web Audio API
+        function playSweetSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Sweet chime sound (two tones)
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.1);
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                console.log('Audio not available:', e);
+            }
+        }
+        // Icons array - random selection
+        const icons = ['🍎', '🍓', '🍇', '🍊', '🍋', '🍌', '🍉', '🍑', '🍒', '🥝', '🍍', '🥭', '❤️', '💛', '💚', '💙', '💜', '🧡', '💖', '💕', '🍬', '🍭', '🍫', '🍰', '🍪', '🍩', '🍨', '🍧', '⭐', '🌟', '✨', '💫'];
+        
+        // Variable definitions for formulas
+        const variableDefinitions = {
+            "f'(x) = lim(h→0) [f(x+h) - f(x)]/h": [
+                { var: 'f', meaning: 'Function' },
+                { var: "f'", meaning: "Derivative of function f" },
+                { var: 'x', meaning: 'Independent variable' },
+                { var: 'h', meaning: 'Small increment approaching zero' },
+                { var: 'lim', meaning: 'Limit as h approaches zero' }
+            ],
+            '∫u dv = uv - ∫v du': [
+                { var: 'u', meaning: 'First function' },
+                { var: 'v', meaning: 'Second function' },
+                { var: 'du', meaning: 'Differential of u' },
+                { var: 'dv', meaning: 'Differential of v' },
+                { var: '∫', meaning: 'Integral' }
+            ],
+            "d/dx[f(g(x))] = f'(g(x)) · g'(x)": [
+                { var: 'f', meaning: 'Outer function' },
+                { var: 'g', meaning: 'Inner function' },
+                { var: 'x', meaning: 'Independent variable' },
+                { var: "f'", meaning: "Derivative of f" },
+                { var: "g'", meaning: "Derivative of g" }
+            ],
+            'd/dx[uv] = u\'v + uv\'': [
+                { var: 'u', meaning: 'First function' },
+                { var: 'v', meaning: 'Second function' },
+                { var: "u'", meaning: "Derivative of u" },
+                { var: "v'", meaning: "Derivative of v" }
+            ],
+            "d/dx[u/v] = (u'v - uv')/v²": [
+                { var: 'u', meaning: 'Numerator function' },
+                { var: 'v', meaning: 'Denominator function' },
+                { var: "u'", meaning: "Derivative of u" },
+                { var: "v'", meaning: "Derivative of v" }
+            ],
+            'F = ma': [
+                { var: 'F', meaning: 'Force (Newtons)' },
+                { var: 'm', meaning: 'Mass (kilograms)' },
+                { var: 'a', meaning: 'Acceleration (m/s²)' }
+            ],
+            'KE = ½mv²': [
+                { var: 'KE', meaning: 'Kinetic Energy (Joules)' },
+                { var: 'm', meaning: 'Mass (kilograms)' },
+                { var: 'v', meaning: 'Velocity (m/s)' }
+            ],
+            'PE = mgh': [
+                { var: 'PE', meaning: 'Potential Energy (Joules)' },
+                { var: 'm', meaning: 'Mass (kilograms)' },
+                { var: 'g', meaning: 'Gravitational acceleration (9.8 m/s²)' },
+                { var: 'h', meaning: 'Height (meters)' }
+            ],
+            'P = W/t = F·v': [
+                { var: 'P', meaning: 'Power (Watts)' },
+                { var: 'W', meaning: 'Work (Joules)' },
+                { var: 't', meaning: 'Time (seconds)' },
+                { var: 'F', meaning: 'Force (Newtons)' },
+                { var: 'v', meaning: 'Velocity (m/s)' }
+            ],
+            'p = mv': [
+                { var: 'p', meaning: 'Momentum (kg·m/s)' },
+                { var: 'm', meaning: 'Mass (kilograms)' },
+                { var: 'v', meaning: 'Velocity (m/s)' }
+            ],
+            'PV = nRT': [
+                { var: 'P', meaning: 'Pressure (Pascals)' },
+                { var: 'V', meaning: 'Volume (m³)' },
+                { var: 'n', meaning: 'Number of moles' },
+                { var: 'R', meaning: 'Gas constant (8.314 J/mol·K)' },
+                { var: 'T', meaning: 'Temperature (Kelvin)' }
+            ],
+            'V = IR': [
+                { var: 'V', meaning: 'Voltage (Volts)' },
+                { var: 'I', meaning: 'Current (Amperes)' },
+                { var: 'R', meaning: 'Resistance (Ohms)' }
+            ],
+            'P = VI = I²R = V²/R': [
+                { var: 'P', meaning: 'Power (Watts)' },
+                { var: 'V', meaning: 'Voltage (Volts)' },
+                { var: 'I', meaning: 'Current (Amperes)' },
+                { var: 'R', meaning: 'Resistance (Ohms)' }
+            ],
+            'σ = F/A': [
+                { var: 'σ', meaning: 'Stress (Pascals)' },
+                { var: 'F', meaning: 'Force (Newtons)' },
+                { var: 'A', meaning: 'Area (m²)' }
+            ],
+            'ε = ΔL/L₀': [
+                { var: 'ε', meaning: 'Strain (dimensionless)' },
+                { var: 'ΔL', meaning: 'Change in length (meters)' },
+                { var: 'L₀', meaning: 'Original length (meters)' }
+            ],
+            'E = σ/ε': [
+                { var: 'E', meaning: "Young's Modulus (Pascals)" },
+                { var: 'σ', meaning: 'Stress (Pascals)' },
+                { var: 'ε', meaning: 'Strain (dimensionless)' }
+            ],
+            'P = P₀ + ρgh': [
+                { var: 'P', meaning: 'Pressure at depth (Pascals)' },
+                { var: 'P₀', meaning: 'Surface pressure (Pascals)' },
+                { var: 'ρ', meaning: 'Density (kg/m³)' },
+                { var: 'g', meaning: 'Gravitational acceleration (9.8 m/s²)' },
+                { var: 'h', meaning: 'Depth (meters)' }
+            ],
+            'P + ½ρv² + ρgh = constant': [
+                { var: 'P', meaning: 'Pressure (Pascals)' },
+                { var: 'ρ', meaning: 'Density (kg/m³)' },
+                { var: 'v', meaning: 'Velocity (m/s)' },
+                { var: 'g', meaning: 'Gravitational acceleration (9.8 m/s²)' },
+                { var: 'h', meaning: 'Height (meters)' }
+            ],
+            'Re = ρVD/μ = VD/ν': [
+                { var: 'Re', meaning: 'Reynolds Number (dimensionless)' },
+                { var: 'ρ', meaning: 'Density (kg/m³)' },
+                { var: 'V', meaning: 'Velocity (m/s)' },
+                { var: 'D', meaning: 'Diameter (meters)' },
+                { var: 'μ', meaning: 'Dynamic viscosity (Pa·s)' },
+                { var: 'ν', meaning: 'Kinematic viscosity (m²/s)' }
+            ],
+            'q = -kA(dT/dx)': [
+                { var: 'q', meaning: 'Heat flux (Watts)' },
+                { var: 'k', meaning: 'Thermal conductivity (W/m·K)' },
+                { var: 'A', meaning: 'Area (m²)' },
+                { var: 'dT/dx', meaning: 'Temperature gradient (K/m)' }
+            ],
+            'q = hA(Tₛ - T∞)': [
+                { var: 'q', meaning: 'Heat transfer rate (Watts)' },
+                { var: 'h', meaning: 'Convective heat transfer coefficient (W/m²·K)' },
+                { var: 'A', meaning: 'Surface area (m²)' },
+                { var: 'Tₛ', meaning: 'Surface temperature (Kelvin)' },
+                { var: 'T∞', meaning: 'Fluid temperature (Kelvin)' }
+            ],
+            'q = εσT⁴': [
+                { var: 'q', meaning: 'Radiative heat flux (W/m²)' },
+                { var: 'ε', meaning: 'Emissivity (dimensionless)' },
+                { var: 'σ', meaning: 'Stefan-Boltzmann constant (5.67×10⁻⁸ W/m²·K⁴)' },
+                { var: 'T', meaning: 'Temperature (Kelvin)' }
+            ],
+            'ΔU = Q - W': [
+                { var: 'ΔU', meaning: 'Change in internal energy (Joules)' },
+                { var: 'Q', meaning: 'Heat added (Joules)' },
+                { var: 'W', meaning: 'Work done (Joules)' }
+            ],
+            'H = U + PV': [
+                { var: 'H', meaning: 'Enthalpy (Joules)' },
+                { var: 'U', meaning: 'Internal energy (Joules)' },
+                { var: 'P', meaning: 'Pressure (Pascals)' },
+                { var: 'V', meaning: 'Volume (m³)' }
+            ],
+            'η = 1 - Tₗ/Tₕ': [
+                { var: 'η', meaning: 'Efficiency (dimensionless)' },
+                { var: 'Tₗ', meaning: 'Low temperature (Kelvin)' },
+                { var: 'Tₕ', meaning: 'High temperature (Kelvin)' }
+            ],
+            'τ = r × F = Iα': [
+                { var: 'τ', meaning: 'Torque (N·m)' },
+                { var: 'r', meaning: 'Radius (meters)' },
+                { var: 'F', meaning: 'Force (Newtons)' },
+                { var: 'I', meaning: 'Moment of inertia (kg·m²)' },
+                { var: 'α', meaning: 'Angular acceleration (rad/s²)' }
+            ],
+            'L = r × p = Iω': [
+                { var: 'L', meaning: 'Angular momentum (kg·m²/s)' },
+                { var: 'r', meaning: 'Position vector (meters)' },
+                { var: 'p', meaning: 'Linear momentum (kg·m/s)' },
+                { var: 'I', meaning: 'Moment of inertia (kg·m²)' },
+                { var: 'ω', meaning: 'Angular velocity (rad/s)' }
+            ],
+            'v = rω': [
+                { var: 'v', meaning: 'Tangential velocity (m/s)' },
+                { var: 'r', meaning: 'Radius (meters)' },
+                { var: 'ω', meaning: 'Angular velocity (rad/s)' }
+            ],
+            'aₐ = v²/r = rω²': [
+                { var: 'aₐ', meaning: 'Centripetal acceleration (m/s²)' },
+                { var: 'v', meaning: 'Velocity (m/s)' },
+                { var: 'r', meaning: 'Radius (meters)' },
+                { var: 'ω', meaning: 'Angular velocity (rad/s)' }
+            ],
+            'σ = Mc/I = M/S': [
+                { var: 'σ', meaning: 'Bending stress (Pascals)' },
+                { var: 'M', meaning: 'Bending moment (N·m)' },
+                { var: 'c', meaning: 'Distance from neutral axis (meters)' },
+                { var: 'I', meaning: 'Moment of inertia (m⁴)' },
+                { var: 'S', meaning: 'Section modulus (m³)' }
+            ],
+            'τ = Tr/J': [
+                { var: 'τ', meaning: 'Shear stress (Pascals)' },
+                { var: 'T', meaning: 'Torque (N·m)' },
+                { var: 'r', meaning: 'Radius (meters)' },
+                { var: 'J', meaning: 'Polar moment of inertia (m⁴)' }
+            ],
+            'G(s) = Y(s)/U(s)': [
+                { var: 'G(s)', meaning: 'Transfer function' },
+                { var: 'Y(s)', meaning: 'Output (Laplace domain)' },
+                { var: 'U(s)', meaning: 'Input (Laplace domain)' },
+                { var: 's', meaning: 'Complex frequency variable' }
+            ],
+            'ωₙ = √(k/m)': [
+                { var: 'ωₙ', meaning: 'Natural frequency (rad/s)' },
+                { var: 'k', meaning: 'Spring constant (N/m)' },
+                { var: 'm', meaning: 'Mass (kilograms)' }
+            ],
+            'ζ = c/(2√(mk))': [
+                { var: 'ζ', meaning: 'Damping ratio (dimensionless)' },
+                { var: 'c', meaning: 'Damping coefficient (N·s/m)' },
+                { var: 'm', meaning: 'Mass (kilograms)' },
+                { var: 'k', meaning: 'Spring constant (N/m)' }
+            ]
+        };
+
+        // Common variable meanings dictionary
+        const commonVariables = {
+            // Physics basics
+            'F': 'Force (Newtons)',
+            'f': 'Function or frequency (Hz)',
+            'm': 'Mass (kilograms)',
+            'a': 'Acceleration (m/s²)',
+            'v': 'Velocity (m/s)',
+            'V': 'Volume or Voltage (m³ or Volts)',
+            't': 'Time (seconds)',
+            'T': 'Temperature or Period (Kelvin or seconds)',
+            'x': 'Position or distance (meters)',
+            'y': 'Position or distance (meters)',
+            'z': 'Position or distance (meters)',
+            'r': 'Radius or distance (meters)',
+            'R': 'Resistance or Gas constant (Ohms or 8.314 J/mol·K)',
+            'h': 'Height or Planck constant (meters or 6.626×10⁻³⁴ J·s)',
+            'H': 'Enthalpy or Height (Joules or meters)',
+            'g': 'Gravitational acceleration (9.8 m/s²)',
+            'G': 'Gravitational constant or Shear modulus (6.674×10⁻¹¹ N·m²/kg² or Pascals)',
+            'P': 'Power or Pressure (Watts or Pascals)',
+            'p': 'Momentum or pressure (kg·m/s or Pascals)',
+            'W': 'Work or Weight (Joules or Newtons)',
+            'w': 'Angular frequency or width (rad/s or meters)',
+            'E': "Energy or Young's Modulus (Joules or Pascals)",
+            'U': 'Internal energy or Potential energy (Joules)',
+            'Q': 'Heat or Charge (Joules or Coulombs)',
+            'q': 'Heat flux or charge (Watts or Coulombs)',
+            'I': 'Current or Moment of inertia (Amperes or kg·m²)',
+            'i': 'Current or index (Amperes or dimensionless)',
+            'A': 'Area or Amplitude (m² or units)',
+            'L': 'Length or Angular momentum (meters or kg·m²/s)',
+            'l': 'Length (meters)',
+            'S': 'Entropy or Section modulus (J/K or m³)',
+            's': 'Distance or Laplace variable (meters or complex)',
+            'k': 'Spring constant or Thermal conductivity (N/m or W/m·K)',
+            'K': 'Bulk modulus or Kinetic energy (Pascals or Joules)',
+            'c': 'Speed of light or Damping coefficient (3×10⁸ m/s or N·s/m)',
+            'C': 'Capacitance or Heat capacity (Farads or J/K)',
+            'n': 'Number of moles or Refractive index (moles or dimensionless)',
+            'N': 'Normal force or Number (Newtons or count)',
+            'M': 'Moment or Mass (N·m or kilograms)',
+            'J': 'Polar moment of inertia or Current density (m⁴ or A/m²)',
+            'D': 'Diameter or Diffusion coefficient (meters or m²/s)',
+            'd': 'Distance or diameter (meters)',
+            'ρ': 'Density (kg/m³)',
+            'μ': 'Dynamic viscosity or Coefficient of friction (Pa·s or dimensionless)',
+            'ν': 'Kinematic viscosity or Poisson ratio (m²/s or dimensionless)',
+            'σ': 'Stress or Stefan-Boltzmann constant (Pascals or 5.67×10⁻⁸ W/m²·K⁴)',
+            'ε': 'Strain or Emissivity (dimensionless)',
+            'τ': 'Torque or Shear stress (N·m or Pascals)',
+            'γ': 'Shear strain or Heat capacity ratio (dimensionless)',
+            'α': 'Angular acceleration or Thermal expansion (rad/s² or 1/K)',
+            'β': 'Beta coefficient or Thermal expansion (dimensionless or 1/K)',
+            'θ': 'Angle (radians or degrees)',
+            'φ': 'Angle or Phase (radians or degrees)',
+            'ω': 'Angular velocity (rad/s)',
+            'Ω': 'Angular velocity or Resistance (rad/s or Ohms)',
+            'λ': 'Wavelength or Eigenvalue (meters or units)',
+            'η': 'Efficiency or Viscosity (dimensionless or Pa·s)',
+            'ζ': 'Damping ratio (dimensionless)',
+            'δ': 'Deflection or Delta (meters or change)',
+            'Δ': 'Change or Delta (units)',
+            'π': 'Pi (3.14159...)',
+            'e': "Euler's number (2.71828...)",
+            'i': 'Imaginary unit (√-1)',
+            'j': 'Imaginary unit (√-1)',
+            'Re': 'Reynolds Number (dimensionless)',
+            'Pr': 'Prandtl Number (dimensionless)',
+            'Nu': 'Nusselt Number (dimensionless)',
+            'Gr': 'Grashof Number (dimensionless)',
+            'Ra': 'Rayleigh Number (dimensionless)',
+            'Fr': 'Froude Number (dimensionless)',
+            'Ma': 'Mach Number (dimensionless)',
+            'Bi': 'Biot Number (dimensionless)',
+            'Fo': 'Fourier Number (dimensionless)',
+            'NTU': 'Number of Transfer Units (dimensionless)',
+            'COP': 'Coefficient of Performance (dimensionless)',
+            'LMTD': 'Log Mean Temperature Difference (Kelvin)',
+            'L₁₀': 'Bearing life (revolutions)',
+            'C': 'Bearing dynamic load rating (Newtons)',
+            'Kp': 'Proportional gain',
+            'Ki': 'Integral gain',
+            'Kd': 'Derivative gain',
+            'ess': 'Steady state error',
+            'GM': 'Gain margin (dB)',
+            'PM': 'Phase margin (degrees)'
+        };
+
+        // Function to extract formula text (clean version)
+        function getFormulaKey(formulaText) {
+            // Remove subscripts/superscripts and extra spaces for matching
+            return formulaText.replace(/\s+/g, ' ').trim();
+        }
+
+        // Function to get variable meaning from common dictionary
+        function getVariableMeaning(varName) {
+            // Check exact match
+            if (commonVariables[varName]) {
+                return commonVariables[varName];
+            }
+            
+            // Check with subscripts removed
+            const baseVar = varName.replace(/[₀₁₂₃₄₅₆₇₈₉ₐₑᵢₒᵤₓ₊₋₌₍₎⁰¹²³⁴⁵⁶⁷⁸⁹ᵃᵇᶜᵈᵉᶠᵍʰᵢʲᵏˡᵐⁿᵒᵖᵠʳˢᵗᵘᵛʷˣʸᶻ]/g, '');
+            if (commonVariables[baseVar]) {
+                return commonVariables[baseVar];
+            }
+            
+            // Check common patterns
+            if (varName.includes('₀') || varName.includes('0')) {
+                const base = varName.replace(/[₀0]/g, '');
+                if (commonVariables[base]) {
+                    return commonVariables[base] + ' (initial value)';
+                }
+            }
+            
+            if (varName.includes('∞') || varName.includes('inf')) {
+                const base = varName.replace(/[∞inf]/g, '');
+                if (commonVariables[base]) {
+                    return commonVariables[base] + ' (at infinity)';
+                }
+            }
+            
+            // Try uppercase/lowercase variations
+            if (varName.length === 1) {
+                const upper = varName.toUpperCase();
+                const lower = varName.toLowerCase();
+                if (commonVariables[upper]) return commonVariables[upper];
+                if (commonVariables[lower]) return commonVariables[lower];
+            }
+            
+            return null;
+        }
+
+        // Function to find matching variable definition
+        function findVariableDefinition(formulaText) {
+            const cleanFormula = getFormulaKey(formulaText);
+            
+            // Try exact match first
+            if (variableDefinitions[cleanFormula]) {
+                return variableDefinitions[cleanFormula];
+            }
+            
+            // Try partial matches (check if formula contains known patterns)
+            for (const key in variableDefinitions) {
+                const keyParts = key.split('=').map(s => s.trim());
+                const formulaParts = cleanFormula.split('=').map(s => s.trim());
+                
+                // Check if main parts match
+                if (keyParts.length > 0 && formulaParts.length > 0) {
+                    if (formulaParts[0].includes(keyParts[0]) || keyParts[0].includes(formulaParts[0].substring(0, Math.min(10, formulaParts[0].length)))) {
+                        return variableDefinitions[key];
+                    }
+                }
+            }
+            
+            // Extract variables and use common meanings
+            const vars = formulaText.match(/[A-Za-z][₀₁₂₃₄₅₆₇₈₉ₐₑᵢₒᵤₓ₊₋₌₍₎⁰¹²³⁴⁵⁶⁷⁸⁹ᵃᵇᶜᵈᵉᶠᵍʰᵢʲᵏˡᵐⁿᵒᵖᵠʳˢᵗᵘᵛʷˣʸᶻ∞]*/g) || [];
+            const uniqueVars = [...new Set(vars)]
+                .filter(v => {
+                    // Filter out common words and keep only meaningful variables
+                    const skipWords = ['lim', 'exp', 'ln', 'log', 'sin', 'cos', 'tan', 'sqrt', 'abs', 'max', 'min', 'and', 'or', 'not'];
+                    return v.length <= 5 && !skipWords.includes(v.toLowerCase()) && /^[A-Za-z]/.test(v);
+                })
+                .sort((a, b) => {
+                    // Sort: single letters first, then longer variables
+                    if (a.length === 1 && b.length > 1) return -1;
+                    if (a.length > 1 && b.length === 1) return 1;
+                    return a.localeCompare(b);
+                });
+            
+            return uniqueVars.map(v => {
+                const meaning = getVariableMeaning(v);
+                return {
+                    var: v,
+                    meaning: meaning || 'Variable in formula'
+                };
+            });
+        }
+
+        // Add buttons to all formula items
+        document.addEventListener('DOMContentLoaded', function() {
+            const formulaItems = document.querySelectorAll('.formula-item');
+            
+            formulaItems.forEach((item, index) => {
+                const formulaName = item.querySelector('.formula-name');
+                const formula = item.querySelector('.formula');
+                
+                if (formulaName && formula) {
+                    // Create button
+                    const btn = document.createElement('button');
+                    btn.className = 'formula-info-btn';
+                    btn.innerHTML = icons[index % icons.length];
+                    btn.setAttribute('aria-label', 'Show variable definitions');
+                    
+                    // Wrap formula name and button
+                    const header = document.createElement('div');
+                    header.className = 'formula-header';
+                    header.appendChild(formulaName.cloneNode(true));
+                    header.appendChild(btn);
+                    
+                    // Replace original formula name
+                    formulaName.replaceWith(header);
+                    
+                    // Add click event
+                    btn.addEventListener('click', function() {
+                        const formulaText = formula.textContent.trim();
+                        const variables = findVariableDefinition(formulaText);
+                        
+                        // Play sweet sound
+                        playSweetSound();
+                        
+                        // Show modal
+                        document.getElementById('modalFormula').textContent = formulaText;
+                        const list = document.getElementById('variablesList');
+                        list.innerHTML = '';
+                        
+                        variables.forEach(v => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `<span class="variable">${v.var}</span><span class="variable-meaning">= ${v.meaning}</span>`;
+                            list.appendChild(li);
+                        });
+                        
+                        document.getElementById('variableModal').style.display = 'block';
+                    });
+                }
+            });
+            
+            // Close modal
+            const modal = document.getElementById('variableModal');
+            const closeBtn = document.querySelector('.close-modal');
+            
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
