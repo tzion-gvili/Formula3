@@ -45,6 +45,78 @@
             opacity: 0.9;
         }
 
+        .search-container {
+            margin-top: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .search-box:focus {
+            background: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .search-box::placeholder {
+            color: #999;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            color: #667eea;
+            pointer-events: none;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2em;
+            display: none;
+        }
+
+        .course-section.hidden {
+            display: none;
+        }
+
+        .formula-item.hidden {
+            display: none;
+        }
+
+        .formula-item.highlight {
+            background: #fff3cd;
+            border-color: #ffc107;
+            animation: highlight 0.5s ease;
+        }
+
+        @keyframes highlight {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
         .content {
             padding: 40px;
         }
@@ -384,6 +456,16 @@
                 font-size: 0.8em;
             }
             
+            .search-container {
+                margin-top: 20px;
+                padding: 0 10px;
+            }
+            
+            .search-box {
+                padding: 12px 45px 12px 15px;
+                font-size: 1em;
+            }
+            
             footer {
                 padding: 20px 15px;
             }
@@ -403,6 +485,12 @@
         <header>
             <h1>🔧 Mechanical Engineering Formulas</h1>
             <p>Comprehensive Formula Reference Guide</p>
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" id="searchBox" class="search-box" placeholder="🔍 Search formulas, variables, or descriptions...">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
         </header>
 
         <div class="content">
@@ -4076,6 +4164,91 @@
             window.addEventListener('click', function(event) {
                 if (event.target === modal) {
                     modal.style.display = 'none';
+                }
+            });
+            
+            // Search functionality
+            const searchBox = document.getElementById('searchBox');
+            const allFormulaItems = document.querySelectorAll('.formula-item');
+            const allCourseSections = document.querySelectorAll('.course-section');
+            const noResultsMessage = document.createElement('div');
+            noResultsMessage.className = 'no-results';
+            noResultsMessage.textContent = '🔍 No formulas found matching your search.';
+            document.querySelector('.content').appendChild(noResultsMessage);
+            
+            function performSearch() {
+                const searchTerm = searchBox.value.toLowerCase().trim();
+                let hasResults = false;
+                let visibleSections = 0;
+                
+                if (searchTerm === '') {
+                    // Show all formulas
+                    allFormulaItems.forEach(item => {
+                        item.classList.remove('hidden', 'highlight');
+                    });
+                    allCourseSections.forEach(section => {
+                        section.classList.remove('hidden');
+                    });
+                    noResultsMessage.style.display = 'none';
+                    return;
+                }
+                
+                // Search through all formulas
+                allFormulaItems.forEach(item => {
+                    const formulaName = item.querySelector('.formula-name')?.textContent.toLowerCase() || '';
+                    const formula = item.querySelector('.formula')?.textContent.toLowerCase() || '';
+                    const description = item.querySelector('.formula-description')?.textContent.toLowerCase() || '';
+                    
+                    // Check if search term matches any part
+                    const matches = formulaName.includes(searchTerm) || 
+                                   formula.includes(searchTerm) || 
+                                   description.includes(searchTerm);
+                    
+                    if (matches) {
+                        item.classList.remove('hidden');
+                        item.classList.add('highlight');
+                        setTimeout(() => item.classList.remove('highlight'), 2000);
+                        hasResults = true;
+                    } else {
+                        item.classList.add('hidden');
+                        item.classList.remove('highlight');
+                    }
+                });
+                
+                // Show/hide course sections based on visible formulas
+                allCourseSections.forEach(section => {
+                    const visibleFormulas = section.querySelectorAll('.formula-item:not(.hidden)');
+                    if (visibleFormulas.length > 0) {
+                        section.classList.remove('hidden');
+                        visibleSections++;
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+                
+                // Show no results message if needed
+                if (!hasResults) {
+                    noResultsMessage.style.display = 'block';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                }
+            }
+            
+            // Add event listeners for search
+            searchBox.addEventListener('input', performSearch);
+            searchBox.addEventListener('keyup', function(e) {
+                if (e.key === 'Escape') {
+                    searchBox.value = '';
+                    performSearch();
+                }
+            });
+            
+            // Clear search on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && document.activeElement === searchBox) {
+                    searchBox.value = '';
+                    performSearch();
+                    searchBox.blur();
                 }
             });
         });
