@@ -25,18 +25,20 @@
 
 ## מבנה הקבצים
 
+כל הקבצים בתיקייה הראשית (בלי תתי-תיקיות), כדי שיהיה קל להעלות:
+
 ```
 Formula3/
-├── index.html            # הדף הראשי
-├── css/style.css         # עיצוב ואנימציות
-└── js/
-    ├── core.js           # צלילים, קונפטי, כוכבים, תפריטים
-    └── games/*.js        # משחק אחד בכל קובץ
+├── index.html      # הדף הראשי
+├── style.css       # עיצוב ואנימציות
+├── core.js         # צלילים, קונפטי, כוכבים, תפריטים
+└── quiz.js, logic.js, binary.js, segment.js, ohm.js,
+    resistor.js, circuit.js, capacitor.js, filter.js, detective.js   # משחק אחד בכל קובץ
 ```
 
 ## הוספת משחק חדש
 
-יוצרים קובץ ב-`js/games/`, קוראים ל-`Games.register({...})` עם `id`, `cat`, `icon`, `title`, `desc`, `levels`, `play(stage, level, api)`, ומוסיפים תגית `<script>` ב-`index.html`.
+יוצרים קובץ `.js` חדש בתיקייה הראשית, קוראים ל-`Games.register({...})` עם `id`, `cat`, `icon`, `title`, `desc`, `levels`, `play(stage, level, api)`, ומוסיפים תגית `<script>` ב-`index.html`.
 
 ## טכנולוגיה
 
