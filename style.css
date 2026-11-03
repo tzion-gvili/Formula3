@@ -212,6 +212,7 @@ details.help summary { cursor: pointer; font-weight: 700; }
 .fade-in { animation: fadeIn .35s ease; }
 
 /* ================= Game: Quiz ================= */
+.quiz-scene { font-size: 64px; text-align: center; letter-spacing: 6px; animation: float 3s ease-in-out infinite; filter: drop-shadow(0 8px 14px rgba(0,0,0,.4)); }
 .quiz-q { font-size: 24px; font-weight: 700; text-align: center; margin: 6px 0 22px; line-height: 1.5; }
 .answers { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
 .answer {
