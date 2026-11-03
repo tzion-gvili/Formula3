@@ -259,7 +259,7 @@ const Games = {
 };
 
 const CATEGORIES = [
-  { id: 'quiz', title: 'חידון בזק', icon: '❓', color: '#ff7eb3' },
+  { id: 'quiz', title: 'חידונים ומשימות חשמל', icon: '❓', color: '#ff7eb3' },
   { id: 'digital', title: 'אלקטרוניקה ספרתית (לוגיקה)', icon: '🔢', color: '#9b5de5' },
   { id: 'basics', title: 'חוקים בסיסיים ותורת החשמל', icon: '⚡', color: '#ffb703' },
   { id: 'analog', title: 'רכיבים ואלקטרוניקה אנלוגית', icon: '〰️', color: '#06d6a0' },
@@ -387,12 +387,12 @@ const App = {
         </div>
         <div class="level-grid">
           ${Array.from({ length: g.levels }, (_, i) => {
-            const un = Progress.unlocked(id, i);
+            const un = g.free || Progress.unlocked(id, i);
             const s = Progress.get(id, i);
             return `
               <button class="level ${un ? '' : 'locked'} ${s ? 'done' : ''}" data-level="${i}" ${un ? '' : 'disabled'}
                       style="animation-delay:${i * 0.05}s">
-                <b>${un ? i + 1 : '🔒'}</b>
+                <b>${un ? (g.levelIcons ? g.levelIcons[i] : i + 1) : '🔒'}</b>
                 <span class="lv-stars">${'★'.repeat(s)}<em>${'★'.repeat(3 - s)}</em></span>
               </button>`;
           }).join('')}

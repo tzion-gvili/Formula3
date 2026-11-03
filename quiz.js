@@ -1,5 +1,60 @@
 'use strict';
 
+// Shared multiple-choice engine. Item: { q, a: [correct, ...wrong], e, s? (scene emoji) }
+const QuizEngine = {
+  play(stage, api, items, { hint = 'בחרו את התשובה הנכונה. אין לחץ של זמן 😊', winMsg } = {}) {
+    let i = 0;
+    let mistakes = 0;
+    api.hint(hint);
+
+    function show() {
+      api.rounds(i, items.length);
+      const item = items[i];
+      const answers = U.shuffle(item.a.map((text, idx) => ({ text, ok: idx === 0 })));
+      stage.innerHTML = `
+        <div class="fade-in">
+          ${item.s ? `<div class="quiz-scene">${item.s}</div>` : ''}
+          <div class="quiz-q">${item.q}</div>
+          <div class="answers">
+            ${answers.map((a, k) => `<button class="answer" data-k="${k}" style="animation-delay:${k * 0.07}s">${a.text}</button>`).join('')}
+          </div>
+          <div id="qExplain"></div>
+        </div>`;
+      stage.querySelector('.answers').onclick = (e) => {
+        const b = e.target.closest('.answer');
+        if (!b || b.disabled) return;
+        const pick = answers[+b.dataset.k];
+        stage.querySelectorAll('.answer').forEach((x, k) => {
+          x.disabled = true;
+          if (answers[k].ok) x.classList.add('right');
+        });
+        if (pick.ok) {
+          api.good(null, b);
+        } else {
+          mistakes++;
+          b.classList.add('wrong');
+          api.bad('התשובה הנכונה מסומנת בירוק', b);
+        }
+        stage.querySelector('#qExplain').innerHTML = `
+          <div class="explain">💡 ${item.e}</div>
+          <div class="row mt"><button class="btn" id="qNext">${i + 1 < items.length ? 'לשאלה הבאה ◀' : 'סיום 🏁'}</button></div>`;
+        stage.querySelector('#qNext').onclick = () => {
+          Sound.click();
+          i++;
+          if (i < items.length) show();
+          else {
+            api.rounds(i, items.length);
+            const right = items.length - mistakes;
+            api.win(mistakes === 0 ? 3 : mistakes === 1 ? 2 : 1,
+              (winMsg ? winMsg + ' ' : '') + `ענית נכון על ${right} מתוך ${items.length} שאלות.`);
+          }
+        };
+      };
+    }
+    show();
+  },
+};
+
 (() => {
   // a[0] is always the correct answer; answers are shuffled on screen.
   const POOLS = [
@@ -44,55 +99,7 @@
     long: 'ענו על שאלות אמריקאיות. על כל תשובה נכונה תשמעו צליל מתוק 🎵. אחרי כל שאלה אני מסביר למה. שלב 1 קל, שלב 3 למומחים!',
     levels: 3,
     play(stage, lvl, api) {
-      const qs = U.shuffle(POOLS[lvl]).slice(0, 6);
-      let i = 0;
-      let mistakes = 0;
-
-      api.hint('בחרו את התשובה הנכונה. אין לחץ של זמן 😊');
-
-      function show() {
-        api.rounds(i, qs.length);
-        const item = qs[i];
-        const answers = U.shuffle(item.a.map((text, idx) => ({ text, ok: idx === 0 })));
-        stage.innerHTML = `
-          <div class="fade-in">
-            <div class="quiz-q">${item.q}</div>
-            <div class="answers">
-              ${answers.map((a, k) => `<button class="answer" data-k="${k}" style="animation-delay:${k * 0.07}s">${a.text}</button>`).join('')}
-            </div>
-            <div id="qExplain"></div>
-          </div>`;
-        stage.querySelector('.answers').onclick = (e) => {
-          const b = e.target.closest('.answer');
-          if (!b || b.disabled) return;
-          const pick = answers[+b.dataset.k];
-          stage.querySelectorAll('.answer').forEach((x, k) => {
-            x.disabled = true;
-            if (answers[k].ok) x.classList.add('right');
-          });
-          if (pick.ok) {
-            api.good(null, b);
-          } else {
-            mistakes++;
-            b.classList.add('wrong');
-            api.bad('התשובה הנכונה מסומנת בירוק', b);
-          }
-          stage.querySelector('#qExplain').innerHTML = `
-            <div class="explain">💡 ${item.e}</div>
-            <div class="row mt"><button class="btn" id="qNext">${i + 1 < qs.length ? 'לשאלה הבאה ◀' : 'סיום 🏁'}</button></div>`;
-          stage.querySelector('#qNext').onclick = () => {
-            Sound.click();
-            i++;
-            if (i < qs.length) show();
-            else {
-              api.rounds(i, qs.length);
-              const right = qs.length - mistakes;
-              api.win(mistakes === 0 ? 3 : mistakes === 1 ? 2 : 1, `ענית נכון על ${right} מתוך ${qs.length} שאלות.`);
-            }
-          };
-        };
-      }
-      show();
+      QuizEngine.play(stage, api, U.shuffle(POOLS[lvl]).slice(0, 6));
     },
   });
 })();
