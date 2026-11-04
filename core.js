@@ -264,6 +264,7 @@ const CATEGORIES = [
   { id: 'basics', title: 'חוקים בסיסיים ותורת החשמל', icon: '⚡', color: '#ffb703' },
   { id: 'analog', title: 'רכיבים ואלקטרוניקה אנלוגית', icon: '〰️', color: '#06d6a0' },
   { id: 'tech', title: 'מצב טכנאי – רכיבים פגומים', icon: '🔧', color: '#ff5c7a' },
+  { id: 'code', title: 'תכנות – <span class="ltr">C</span>, <span class="ltr">C++</span> ופייתון', icon: '💻', color: '#4cc9f0' },
 ];
 
 const MASCOT_LINES = [
