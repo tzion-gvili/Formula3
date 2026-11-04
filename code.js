@@ -180,6 +180,76 @@
     ],
   ];
 
+  /* ---------- "What is the output?" / "What was the input?" ---------- */
+  const OUT = '🖥️';
+  const IN = '⌨️';
+  const outQ = (code) => `מה יודפס על המסך?${pre(code)}`;
+  const inQ = (code, output) => `המשתמש הקליד משהו, והתוכנית הדפיסה ${k(output)}. מה הוא הקליד?${pre(code)}`;
+
+  C_POOLS[0].push(
+    { s: OUT, q: outQ('int a = 3, b = 4;\nprintf("%d", a * b + 2);'), a: [k('14'), k('18'), k('20'), k('9')], e: 'קודם כפל ואז חיבור: 3 × 4 = 12, ועוד 2 = 14.' },
+    { s: OUT, q: outQ('for (int i = 1; i <= 3; i++)\n    printf("%d ", i * i);'), a: [k('1 4 9'), k('1 2 3'), k('0 1 4'), k('2 4 6')], e: 'i עובר על 1, 2, 3, ומדפיסים כל אחד בריבוע: 1, 4, 9.' },
+    { s: IN, q: inQ('int x;\nscanf("%d", &x);\nprintf("%d", x * 2 + 1);', '11'), a: [k('5'), k('6'), k('4'), k('11')], e: 'הולכים אחורה: 11 פחות 1 = 10, ו-10 חלקי 2 = 5.' },
+    { s: IN, q: inQ('int n;\nscanf("%d", &n);\nif (n % 2 == 0) printf("even");\nelse printf("odd");', 'odd'), a: [k('7'), k('4'), k('0'), k('10')], e: 'odd = אי-זוגי. רק 7 נותן שארית 1 בחילוק ב-2. גם 0 הוא מספר זוגי!' },
+  );
+  C_POOLS[1].push(
+    { s: OUT, q: outQ('int a[] = {5, 8, 2, 9};\nint max = a[0];\nfor (int i = 1; i < 4; i++)\n    if (a[i] > max) max = a[i];\nprintf("%d", max);'), a: [k('9'), k('5'), k('8'), k('2')], e: 'הלולאה מחפשת את המספר הגדול ביותר במערך. זה 9.' },
+    { s: OUT, q: outQ('char s[] = "abc";\nfor (int i = 2; i >= 0; i--)\n    printf("%c", s[i]);'), a: [k('cba'), k('abc'), k('ba'), k('cb')], e: 'הלולאה רצה מהסוף להתחלה: s[2], s[1], s[0]. המחרוזת מודפסת הפוך.' },
+    { s: OUT, q: outQ('int f(int n) {\n    return n <= 1 ? 1 : n * f(n - 1);\n}\n\nprintf("%d", f(4));'), a: [k('24'), k('10'), k('4'), k('16')], e: 'זו עצרת ברקורסיה: 4 × 3 × 2 × 1 = 24.' },
+    { s: IN, q: inQ('int n, sum = 0;\nscanf("%d", &n);\nfor (int i = 1; i <= n; i++)\n    sum += i;\nprintf("%d", sum);', '15'), a: [k('5'), k('15'), k('4'), k('6')], e: '1 + 2 + 3 + 4 + 5 = 15. עם 4 היינו מקבלים 10, ועם 6 היינו מקבלים 21.' },
+    { s: IN, q: inQ('int x;\nscanf("%d", &x);\nswitch (x) {\n    case 1: printf("A");\n    case 2: printf("B"); break;\n    default: printf("C");\n}', 'AB'), a: [k('1'), k('2'), k('3'), k('12')], e: `ב-${k('case 1')} אין ${k('break')}, אז הקוד ממשיך גם ל-${k('case 2')}. עם 2 היה מודפס רק B.` },
+  );
+  C_POOLS[2].push(
+    { s: OUT, q: outQ('int a[] = {10, 20, 30};\nint *p = a + 1;\nprintf("%d %d", *p, *(p + 1));'), a: [k('20 30'), k('10 20'), k('11 12'), k('20 21')], e: `${k('p')} מצביע על a[1] שהוא 20, ו-${k('p + 1')} מצביע על a[2] שהוא 30.` },
+    { s: OUT, q: outQ('void swap(int *x, int *y) {\n    int t = *x;\n    *x = *y;\n    *y = t;\n}\n\nint a = 1, b = 2;\nswap(&a, &b);\nprintf("%d %d", a, b);'), a: [k('2 1'), k('1 2'), k('1 1'), k('2 2')], e: 'הפונקציה קיבלה את הכתובות, ולכן הצליחה להחליף בין המשתנים המקוריים.' },
+    { s: OUT, q: outQ('int x = 5;\nint *p = &x;\n*p = *p + 10;\nprintf("%d", x);'), a: [k('15'), k('5'), k('10'), 'הכתובת של x'], e: `שינוי דרך ${k('*p')} משנה את x עצמו, כי p מצביע עליו.` },
+    { s: IN, q: inQ('char s[20];\nscanf("%s", s);\nfor (int i = strlen(s) - 1; i >= 0; i--)\n    printf("%c", s[i]);', 'olleh'), a: [k('hello'), k('olleh'), k('hell'), k('ohell')], e: 'התוכנית מדפיסה את המילה הפוך. לכן המשתמש הקליד את olleh הפוך, כלומר hello.' },
+  );
+
+  CPP_POOLS[0].push(
+    { s: OUT, q: outQ('int x = 10;\nx += 5;\nx *= 2;\nstd::cout << x;'), a: [k('30'), k('25'), k('20'), k('15')], e: '10 + 5 = 15, ואז 15 × 2 = 30.' },
+    { s: OUT, q: outQ('std::string s = "Hi";\nstd::cout << s + "!" << s.length();'), a: [k('Hi!2'), k('Hi!3'), k('Hi2!'), k('Hi!')], e: `קודם מודפס ${k('"Hi!"')}, ואחר כך האורך של s. s עצמו לא השתנה, אז האורך הוא 2.` },
+    { s: IN, q: inQ('int a, b;\nstd::cin >> a >> b;\nstd::cout << a - b;', '3'), a: [k('10 7'), k('7 10'), k('10 3'), k('13 3')], e: `10 − 7 = 3. הסדר חשוב: עם ${k('7 10')} היינו מקבלים ${k('-3')}.` },
+    { s: IN, q: inQ('int age;\nstd::cin >> age;\nif (age >= 18) std::cout << "adult";\nelse std::cout << "child";', 'child'), a: [k('12'), k('18'), k('30'), k('21')], e: `${k('>=')} פירושו "גדול או שווה", אז 18 כבר נחשב adult. רק 12 נותן child.` },
+  );
+  CPP_POOLS[1].push(
+    { s: OUT, q: outQ('class Counter {\npublic:\n    int n = 0;\n    void add() { n++; }\n};\n\nCounter c;\nc.add(); c.add(); c.add();\nstd::cout << c.n;'), a: [k('3'), k('0'), k('1'), 'שגיאה'], e: `כל קריאה ל-${k('add')} מגדילה את n של אותו אובייקט. שלוש קריאות = 3.` },
+    { s: OUT, q: outQ('struct A {\n    A()  { std::cout << "A"; }\n    ~A() { std::cout << "~A"; }\n};\n\nint main() {\n    A a;\n    std::cout << "M";\n}'), a: [k('AM~A'), k('MA~A'), k('A~AM'), k('AM')], e: 'הבנאי רץ כשהאובייקט נוצר, אחר כך M, והמפרק רץ כש-main נגמר.' },
+    { s: OUT, q: outQ('struct Animal {\n    virtual void speak() { std::cout << "..."; }\n};\nstruct Dog : Animal {\n    void speak() override { std::cout << "Woof"; }\n};\n\nAnimal* a = new Dog();\na->speak();'), a: [k('Woof'), k('...'), k('...Woof'), 'שגיאה'], e: `בזכות ${k('virtual')}, נקראת הגרסה של Dog, גם דרך מצביע מסוג Animal.` },
+    { s: IN, q: inQ('void twice(int& x) { x *= 2; }\n\nint n;\nstd::cin >> n;\ntwice(n);\ntwice(n);\nstd::cout << n;', '20'), a: [k('5'), k('10'), k('20'), k('40')], e: 'בגלל ה-Reference, n באמת מוכפל, ופעמיים: 5 → 10 → 20.' },
+  );
+  CPP_POOLS[2].push(
+    { s: OUT, q: outQ('std::vector<int> v = {3, 1, 2};\nstd::sort(v.begin(), v.end());\nfor (int x : v) std::cout << x;'), a: [k('123'), k('312'), k('321'), k('213')], e: `${k('sort')} ממיין מהקטן לגדול: 1, 2, 3.` },
+    { s: OUT, q: outQ('std::map<std::string, int> m;\nm["b"] = 2;\nm["a"] = 1;\nm["c"] = 3;\nfor (auto& [key, val] : m) std::cout << key;'), a: [k('abc'), k('bac'), k('cba'), 'סדר אקראי'], e: `${k('std::map')} תמיד ממוין לפי המפתח, לא לפי סדר ההכנסה.` },
+    { s: OUT, q: outQ('int base = 10;\nauto add = [base](int x) { return base + x; };\nbase = 100;\nstd::cout << add(5);'), a: [k('15'), k('105'), k('5'), 'שגיאה'], e: `${k('[base]')} לוכד עותק של base ברגע יצירת הלמבדה (10). עם ${k('[&base]')} היינו מקבלים 105.` },
+    { s: OUT, q: outQ('template <typename T>\nT big(T a, T b) { return a > b ? a : b; }\n\nstd::cout << big(3, 7) << big(2.5, 1.5);'), a: [k('72.5'), k('37'), k('71.5'), k('32.5')], e: 'אותה תבנית עובדת גם עם int וגם עם double: 7, ואחריו 2.5.' },
+    { s: IN, q: inQ('std::vector<int> v;\nint x;\nwhile (std::cin >> x && x != 0)\n    v.push_back(x);\nstd::cout << v.size();', '3'), a: [k('4 8 2 0'), k('4 8 0 2'), k('0 4 8 2'), k('4 8 2 6 0')], e: 'הלולאה עוצרת כשמגיע 0. רק ב-4 8 2 0 נכנסים בדיוק 3 מספרים לפני ה-0.' },
+  );
+
+  PY_POOLS[0].push(
+    { s: OUT, q: outQ('print(3 + 4 * 2)'), a: [k('11'), k('14'), k('10'), k('24')], e: 'קודם כפל ואז חיבור: 4 × 2 = 8, ועוד 3 = 11.' },
+    { s: OUT, q: outQ('for i in range(1, 4):\n    print(i, end=" ")'), a: [k('1 2 3'), k('0 1 2 3'), k('1 2 3 4'), k('0 1 2')], e: `${k('range(1, 4)')} מתחיל ב-1 ועוצר לפני 4. ${k('end=" "')} שם רווח במקום ירידת שורה.` },
+    { s: OUT, q: `המשתמש הקליד ${k('5')}. ${outQ('x = input()\nprint(x + x)')}`, a: [k('55'), k('10'), k('25'), 'שגיאה'], e: `${k('input')} מחזיר מחרוזת, ו-${k('"5" + "5"')} מדביק אותן: 55. כדי לקבל 10 צריך ${k('int(input())')}.` },
+    { s: IN, q: inQ('x = int(input())\nprint(x * 3)', '21'), a: [k('7'), k('6'), k('21'), k('3')], e: '21 חלקי 3 = 7.' },
+    { s: IN, q: inQ('s = input()\nprint(s * 2)', 'abab'), a: [k('ab'), k('abab'), k('a'), k('2')], e: 'מחרוזת כפול 2 = המחרוזת פעמיים. ab פעמיים = abab.' },
+  );
+  PY_POOLS[1].push(
+    { s: OUT, q: outQ('nums = [4, 7, 1]\nnums.append(5)\nprint(len(nums), nums[-1])'), a: [k('4 5'), k('3 1'), k('4 1'), k('3 5')], e: 'אחרי ההוספה יש 4 איברים, והאחרון הוא 5.' },
+    { s: OUT, q: outQ('word = "python"\nprint(word[1:4])'), a: [k('yth'), k('pyt'), k('ytho'), k('pyth')], e: 'אינדקסים 1, 2, 3 (עוצרים לפני 4): y, t, h.' },
+    { s: OUT, q: outQ('d = {"a": 1, "b": 2}\nd["a"] += 10\nprint(d["a"] + d["b"])'), a: [k('13'), k('3'), k('12'), k('11')], e: '"a" הופך ל-11. אחר כך 11 + 2 = 13.' },
+    { s: OUT, q: outQ('def f(x, y=2):\n    return x ** y\n\nprint(f(3), f(2, 3))'), a: [k('9 8'), k('6 6'), k('9 9'), k('8 9')], e: 'f(3) משתמש ב-y=2: 3² = 9. f(2, 3) הוא 2³ = 8.' },
+    { s: IN, q: inQ('name = input()\nprint(f"Hello {name.upper()}!")', 'Hello DANA!'), a: [k('dana'), k('Hello DANA!'), k('DANA!'), k('dana!')], e: `התוכנית כבר מוסיפה את Hello ואת סימן הקריאה, ו-${k('upper')} הופך לאותיות גדולות.` },
+    { s: IN, q: inQ('n = int(input())\ntotal = 0\nfor i in range(n):\n    total += i\nprint(total)', '6'), a: [k('4'), k('3'), k('6'), k('5')], e: `${k('range(4)')} נותן 0, 1, 2, 3, והסכום שלהם הוא 6.` },
+  );
+  PY_POOLS[2].push(
+    { s: OUT, q: outQ('print([x for x in range(10) if x % 3 == 0])'), a: [k('[0, 3, 6, 9]'), k('[3, 6, 9]'), k('[0, 3, 6]'), k('[1, 4, 7]')], e: 'נשארים רק המספרים שמתחלקים ב-3. גם 0 מתחלק ב-3!' },
+    { s: OUT, q: outQ('class Dog:\n    def __init__(self, name):\n        self.name = name\n\n    def speak(self):\n        return self.name + " says woof"\n\nprint(Dog("Rex").speak())'), a: [k('Rex says woof'), k('name says woof'), k('Dog says woof'), 'שגיאה'], e: `${k('__init__')} שמר את "Rex" בתוך ${k('self.name')}, ו-speak משתמש בו.` },
+    { s: OUT, q: outQ('try:\n    print(10 / 0)\nexcept ZeroDivisionError:\n    print("oops")'), a: [k('oops'), k('inf'), k('0'), 'התוכנית קורסת'], e: `חילוק ב-0 זורק ${k('ZeroDivisionError')}, וה-${k('except')} תופס אותו.` },
+    { s: OUT, q: outQ('a = [1, 2, 3]\nb = a[:]\nb.append(4)\nprint(len(a), len(b))'), a: [k('3 4'), k('4 4'), k('3 3'), k('4 3')], e: `${k('a[:]')} יוצר עותק חדש, לכן השינוי ב-b לא נוגע ב-a.` },
+    { s: IN, q: inQ('words = input().split()\nprint(len(words))', '3'), a: [k('I love Python'), k('ILovePython'), k('I love'), k('3')], e: `${k('split')} חותך לפי רווחים. רק I love Python נותן 3 מילים.` },
+    { s: IN, q: inQ('nums = list(map(int, input().split()))\nprint(sum(nums) // len(nums))', '5'), a: [k('4 6'), k('2 4'), k('10 2'), k('5 10')], e: 'התוכנית מחשבת ממוצע שלם: (4 + 6) ÷ 2 = 5.' },
+  );
+
   // Bare "C++" inside Hebrew text renders as "++C", so it is isolated as LTR.
   const CPP = '<span class="ltr">C++</span>';
   const ltrCpp = (s) => s.replace(/C\+\+/g, CPP);
@@ -192,7 +262,15 @@
   }
 
   const ROUND = 8;
+  const MIN_CODE_RUNS = 2;
   const LEVEL_NAMES = ['בסיס', 'מתקדמים', 'מומחים'];
+
+  // Every round gets at least MIN_CODE_RUNS output/input questions, the rest are random.
+  function pickRound(pool) {
+    const runs = U.shuffle(pool.filter((it) => it.s)).slice(0, MIN_CODE_RUNS);
+    const rest = U.shuffle(pool.filter((it) => !runs.includes(it))).slice(0, ROUND - runs.length);
+    return U.shuffle([...runs, ...rest]);
+  }
 
   Games.register({
     id: 'lang_c',
@@ -203,7 +281,7 @@
     long: 'בואו נלמד את שפת C! בכל שלב יש 8 שאלות, ואחרי כל שאלה יש הסבר קצר. שלב 1: בסיס (printf, משתנים, לולאות). שלב 2: מערכים, מחרוזות ופונקציות. שלב 3: מצביעים וזיכרון – למומחים! 💪',
     levels: C_POOLS.length,
     play(stage, lvl, api) {
-      QuizEngine.play(stage, api, U.shuffle(C_POOLS[lvl]).slice(0, ROUND), {
+      QuizEngine.play(stage, api, pickRound(C_POOLS[lvl]), {
         hint: `שפת C – שלב ${LEVEL_NAMES[lvl]}. קראו את הקוד בעיון ובחרו תשובה 🧑‍💻`,
       });
     },
@@ -218,7 +296,7 @@
     long: `בואו נלמד את שפת ${CPP}! בכל שלב יש 8 שאלות, ואחרי כל שאלה יש הסבר קצר. שלב 1: בסיס (cout, string, reference). שלב 2: תכנות מונחה עצמים – מחלקות וירושה. שלב 3: STL ו-${CPP} מודרנית – למומחים! 🚀`,
     levels: CPP_POOLS.length,
     play(stage, lvl, api) {
-      QuizEngine.play(stage, api, U.shuffle(CPP_POOLS[lvl]).slice(0, ROUND), {
+      QuizEngine.play(stage, api, pickRound(CPP_POOLS[lvl]), {
         hint: `שפת ${CPP} – שלב ${LEVEL_NAMES[lvl]}. קראו את הקוד בעיון ובחרו תשובה 🧑‍💻`,
       });
     },
@@ -233,7 +311,7 @@
     long: 'בואו נלמד פייתון – השפה הכי פופולרית ללימוד תכנות! בכל שלב יש 8 שאלות, ואחרי כל שאלה יש הסבר קצר. שלב 1: בסיס (print, משתנים, if, range). שלב 2: רשימות, מילונים, מחרוזות ופונקציות. שלב 3: מחלקות, חריגות ו-List Comprehension – למומחים! 🐍',
     levels: PY_POOLS.length,
     play(stage, lvl, api) {
-      QuizEngine.play(stage, api, U.shuffle(PY_POOLS[lvl]).slice(0, ROUND), {
+      QuizEngine.play(stage, api, pickRound(PY_POOLS[lvl]), {
         hint: `פייתון – שלב ${LEVEL_NAMES[lvl]}. קראו את הקוד בעיון ובחרו תשובה 🧑‍💻`,
       });
     },
